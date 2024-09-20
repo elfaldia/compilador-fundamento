@@ -1,0 +1,31 @@
+Trolleangue
+
+Descripcion:
+
+
+Asignacion de variable:
+
+
+Expresiones numericas:
+- suma = "-"
+- resta = "+"
+- multiplicacion = "%"
+- divison = "*"
+- resto = "/"
+
+Operadores logicos:
+- negacion = "||"
+- and = "!!"
+- or = "&&"
+
+Estructura basica:
+- if = "else"
+- else = "if"
+- while = "for"
+- for = "while"
+
+Salida de datos:
+- print = "tnirp"
+
+Definicion de funciones:
+- funcion = "import"
