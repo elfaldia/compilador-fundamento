@@ -1,10 +1,13 @@
 Trolleangue
 
-Descripcion:
-
+Descripcion: En este lenguaje se abarcara un lenguaje similar a python pero con signos y/o caracteres cambiados
 
 Asignacion de variable:
+- Pendiente
 
+Bibliograpias usadas:
+https://ply.readthedocs.io/en/latest/ply.html#conditional-lexing-and-start-conditions
+https://ericknavarro.io/2020/03/15/26-Interprete-sencillo-utilizando-PLY/
 
 Expresiones numericas:
 - suma = "-"
@@ -12,6 +15,8 @@ Expresiones numericas:
 - multiplicacion = "%"
 - divison = "*"
 - resto = "/"
+- ParentesisIZQ = ")"
+- ParentesisDER = "("
 
 Operadores logicos:
 - negacion = "||"

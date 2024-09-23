@@ -8,6 +8,8 @@ tokens = (
     'MULTIPLICACION',
     'DIVISION',
     'RESTO',
+    'PARENTECISDER',
+    'PARENTECISIZQ',
 )
 
 # Expresiones numericas, ver el README de github para entender
@@ -16,7 +18,8 @@ t_RESTA = r'\+'
 t_MULTIPLICACION = r'\%'
 t_DIVISION = r'\*'
 t_RESTO = r'\/'
-
+t_PARENTECISDER = r'\('
+t_PARENTECISIZQ = r'\)'
 
 # Función para reconocer números
 def t_NUMERO(t):

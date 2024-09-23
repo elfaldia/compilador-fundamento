@@ -12,9 +12,9 @@ def main():
     entidadLexer.input(datosEntrada)
 
     # Muestra los tokens generados por el lexer
-    print("\nTokens generados:")
-    for token in entidadLexer:
-        print(token)
+    #print("\nTokens generados:")
+    #for token in entidadLexer:
+        #print(token)
 
     # Transformar la entrada usando el parser
     print("\nResultado del parser:")

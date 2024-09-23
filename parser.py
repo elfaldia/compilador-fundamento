@@ -3,30 +3,41 @@ import ply.yacc as yacc
 # Importar tokens desde el lexer
 from lexer import tokens
 
-# Regla de gramática y su acción asociada
+# Reglas de gramatica
+
+def p_expression_term(p):
+    'expression : term'
+    p[0] = p[1]
+def p_term_factor(p):
+    'term : factor'
+    p[0] = p[1]
+def p_factor_NUMERO(p):
+    'factor : NUMERO'
+    p[0] = p[1]
+def p_factor_expr(p):
+    'factor : PARENTECISIZQ expression PARENTECISDER'
+    p[0] = p[2]
+
+#Reglas de matematica
 def p_expression_SUMA(p):
-    'expression : expression SUMA expression'
+    'expression : expression SUMA term'
     p[0] = p[1] + p[3]
 
 def p_expression_RESTA(p):
-    'expression : expression RESTA expression'
+    'expression : expression RESTA term'
     p[0] = p[1] - p[3]
 
 def p_expression_MULTIPLICACION(p):
-    'expression : expression MULTIPLICACION expression'
+    'term : term MULTIPLICACION factor'
     p[0] = p[1] * p[3]
 
 def p_expression_DIVISION(p):
-    'expression : expression DIVISION expression'
+    'term : term DIVISION factor'
     p[0] = p[1] / p[3]
 
 def p_expression_RESTO(p):
-    'expression : expression RESTO expression'
+    'term : term RESTO factor'
     p[0] = p[1] % p[3]
-
-def p_expression_NUMERO(p):
-    'expression : NUMERO'
-    p[0] = p[1]
 
 def p_error(p):
     print("Error de sintaxis")
