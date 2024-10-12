@@ -1,0 +1,402 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> ID DISTINTO expression
+Rule 2     statement -> TNIRP PARENTECISDER expression PARENTECISIZQ
+Rule 3     expression -> expression SUMA term
+Rule 4     expression -> expression RESTA term
+Rule 5     expression -> term
+Rule 6     term -> term MULTIPLICACION factor
+Rule 7     term -> term DIVISION factor
+Rule 8     term -> term RESTO factor
+Rule 9     term -> factor
+Rule 10    factor -> NUMERO
+Rule 11    factor -> PARENTECISIZQ expression PARENTECISDER
+Rule 12    factor -> ID
+
+Terminals, with rules where they appear
+
+DISTINTO             : 1
+DIVISION             : 7
+ID                   : 1 12
+MULTIPLICACION       : 6
+NUMERO               : 10
+PARENTECISDER        : 2 11
+PARENTECISIZQ        : 2 11
+RESTA                : 4
+RESTO                : 8
+SUMA                 : 3
+TNIRP                : 2
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 1 2 3 4 11
+factor               : 6 7 8 9
+statement            : 0
+term                 : 3 4 5 6 7 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . ID DISTINTO expression
+    (2) statement -> . TNIRP PARENTECISDER expression PARENTECISIZQ
+
+    ID              shift and go to state 2
+    TNIRP           shift and go to state 3
+
+    statement                      shift and go to state 1
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> ID . DISTINTO expression
+
+    DISTINTO        shift and go to state 4
+
+
+state 3
+
+    (2) statement -> TNIRP . PARENTECISDER expression PARENTECISIZQ
+
+    PARENTECISDER   shift and go to state 5
+
+
+state 4
+
+    (1) statement -> ID DISTINTO . expression
+    (3) expression -> . expression SUMA term
+    (4) expression -> . expression RESTA term
+    (5) expression -> . term
+    (6) term -> . term MULTIPLICACION factor
+    (7) term -> . term DIVISION factor
+    (8) term -> . term RESTO factor
+    (9) term -> . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    expression                     shift and go to state 7
+    term                           shift and go to state 8
+    factor                         shift and go to state 9
+
+state 5
+
+    (2) statement -> TNIRP PARENTECISDER . expression PARENTECISIZQ
+    (3) expression -> . expression SUMA term
+    (4) expression -> . expression RESTA term
+    (5) expression -> . term
+    (6) term -> . term MULTIPLICACION factor
+    (7) term -> . term DIVISION factor
+    (8) term -> . term RESTO factor
+    (9) term -> . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    expression                     shift and go to state 12
+    term                           shift and go to state 8
+    factor                         shift and go to state 9
+
+state 6
+
+    (12) factor -> ID .
+
+    MULTIPLICACION  reduce using rule 12 (factor -> ID .)
+    DIVISION        reduce using rule 12 (factor -> ID .)
+    RESTO           reduce using rule 12 (factor -> ID .)
+    SUMA            reduce using rule 12 (factor -> ID .)
+    RESTA           reduce using rule 12 (factor -> ID .)
+    $end            reduce using rule 12 (factor -> ID .)
+    PARENTECISIZQ   reduce using rule 12 (factor -> ID .)
+    PARENTECISDER   reduce using rule 12 (factor -> ID .)
+
+
+state 7
+
+    (1) statement -> ID DISTINTO expression .
+    (3) expression -> expression . SUMA term
+    (4) expression -> expression . RESTA term
+
+    $end            reduce using rule 1 (statement -> ID DISTINTO expression .)
+    SUMA            shift and go to state 13
+    RESTA           shift and go to state 14
+
+
+state 8
+
+    (5) expression -> term .
+    (6) term -> term . MULTIPLICACION factor
+    (7) term -> term . DIVISION factor
+    (8) term -> term . RESTO factor
+
+    SUMA            reduce using rule 5 (expression -> term .)
+    RESTA           reduce using rule 5 (expression -> term .)
+    $end            reduce using rule 5 (expression -> term .)
+    PARENTECISIZQ   reduce using rule 5 (expression -> term .)
+    PARENTECISDER   reduce using rule 5 (expression -> term .)
+    MULTIPLICACION  shift and go to state 15
+    DIVISION        shift and go to state 16
+    RESTO           shift and go to state 17
+
+
+state 9
+
+    (9) term -> factor .
+
+    MULTIPLICACION  reduce using rule 9 (term -> factor .)
+    DIVISION        reduce using rule 9 (term -> factor .)
+    RESTO           reduce using rule 9 (term -> factor .)
+    SUMA            reduce using rule 9 (term -> factor .)
+    RESTA           reduce using rule 9 (term -> factor .)
+    $end            reduce using rule 9 (term -> factor .)
+    PARENTECISIZQ   reduce using rule 9 (term -> factor .)
+    PARENTECISDER   reduce using rule 9 (term -> factor .)
+
+
+state 10
+
+    (10) factor -> NUMERO .
+
+    MULTIPLICACION  reduce using rule 10 (factor -> NUMERO .)
+    DIVISION        reduce using rule 10 (factor -> NUMERO .)
+    RESTO           reduce using rule 10 (factor -> NUMERO .)
+    SUMA            reduce using rule 10 (factor -> NUMERO .)
+    RESTA           reduce using rule 10 (factor -> NUMERO .)
+    $end            reduce using rule 10 (factor -> NUMERO .)
+    PARENTECISIZQ   reduce using rule 10 (factor -> NUMERO .)
+    PARENTECISDER   reduce using rule 10 (factor -> NUMERO .)
+
+
+state 11
+
+    (11) factor -> PARENTECISIZQ . expression PARENTECISDER
+    (3) expression -> . expression SUMA term
+    (4) expression -> . expression RESTA term
+    (5) expression -> . term
+    (6) term -> . term MULTIPLICACION factor
+    (7) term -> . term DIVISION factor
+    (8) term -> . term RESTO factor
+    (9) term -> . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    expression                     shift and go to state 18
+    term                           shift and go to state 8
+    factor                         shift and go to state 9
+
+state 12
+
+    (2) statement -> TNIRP PARENTECISDER expression . PARENTECISIZQ
+    (3) expression -> expression . SUMA term
+    (4) expression -> expression . RESTA term
+
+    PARENTECISIZQ   shift and go to state 19
+    SUMA            shift and go to state 13
+    RESTA           shift and go to state 14
+
+
+state 13
+
+    (3) expression -> expression SUMA . term
+    (6) term -> . term MULTIPLICACION factor
+    (7) term -> . term DIVISION factor
+    (8) term -> . term RESTO factor
+    (9) term -> . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    term                           shift and go to state 20
+    factor                         shift and go to state 9
+
+state 14
+
+    (4) expression -> expression RESTA . term
+    (6) term -> . term MULTIPLICACION factor
+    (7) term -> . term DIVISION factor
+    (8) term -> . term RESTO factor
+    (9) term -> . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    term                           shift and go to state 21
+    factor                         shift and go to state 9
+
+state 15
+
+    (6) term -> term MULTIPLICACION . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    factor                         shift and go to state 22
+
+state 16
+
+    (7) term -> term DIVISION . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    factor                         shift and go to state 23
+
+state 17
+
+    (8) term -> term RESTO . factor
+    (10) factor -> . NUMERO
+    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
+    (12) factor -> . ID
+
+    NUMERO          shift and go to state 10
+    PARENTECISIZQ   shift and go to state 11
+    ID              shift and go to state 6
+
+    factor                         shift and go to state 24
+
+state 18
+
+    (11) factor -> PARENTECISIZQ expression . PARENTECISDER
+    (3) expression -> expression . SUMA term
+    (4) expression -> expression . RESTA term
+
+    PARENTECISDER   shift and go to state 25
+    SUMA            shift and go to state 13
+    RESTA           shift and go to state 14
+
+
+state 19
+
+    (2) statement -> TNIRP PARENTECISDER expression PARENTECISIZQ .
+
+    $end            reduce using rule 2 (statement -> TNIRP PARENTECISDER expression PARENTECISIZQ .)
+
+
+state 20
+
+    (3) expression -> expression SUMA term .
+    (6) term -> term . MULTIPLICACION factor
+    (7) term -> term . DIVISION factor
+    (8) term -> term . RESTO factor
+
+    SUMA            reduce using rule 3 (expression -> expression SUMA term .)
+    RESTA           reduce using rule 3 (expression -> expression SUMA term .)
+    $end            reduce using rule 3 (expression -> expression SUMA term .)
+    PARENTECISIZQ   reduce using rule 3 (expression -> expression SUMA term .)
+    PARENTECISDER   reduce using rule 3 (expression -> expression SUMA term .)
+    MULTIPLICACION  shift and go to state 15
+    DIVISION        shift and go to state 16
+    RESTO           shift and go to state 17
+
+
+state 21
+
+    (4) expression -> expression RESTA term .
+    (6) term -> term . MULTIPLICACION factor
+    (7) term -> term . DIVISION factor
+    (8) term -> term . RESTO factor
+
+    SUMA            reduce using rule 4 (expression -> expression RESTA term .)
+    RESTA           reduce using rule 4 (expression -> expression RESTA term .)
+    $end            reduce using rule 4 (expression -> expression RESTA term .)
+    PARENTECISIZQ   reduce using rule 4 (expression -> expression RESTA term .)
+    PARENTECISDER   reduce using rule 4 (expression -> expression RESTA term .)
+    MULTIPLICACION  shift and go to state 15
+    DIVISION        shift and go to state 16
+    RESTO           shift and go to state 17
+
+
+state 22
+
+    (6) term -> term MULTIPLICACION factor .
+
+    MULTIPLICACION  reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    DIVISION        reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    RESTO           reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    SUMA            reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    RESTA           reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    $end            reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    PARENTECISIZQ   reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    PARENTECISDER   reduce using rule 6 (term -> term MULTIPLICACION factor .)
+
+
+state 23
+
+    (7) term -> term DIVISION factor .
+
+    MULTIPLICACION  reduce using rule 7 (term -> term DIVISION factor .)
+    DIVISION        reduce using rule 7 (term -> term DIVISION factor .)
+    RESTO           reduce using rule 7 (term -> term DIVISION factor .)
+    SUMA            reduce using rule 7 (term -> term DIVISION factor .)
+    RESTA           reduce using rule 7 (term -> term DIVISION factor .)
+    $end            reduce using rule 7 (term -> term DIVISION factor .)
+    PARENTECISIZQ   reduce using rule 7 (term -> term DIVISION factor .)
+    PARENTECISDER   reduce using rule 7 (term -> term DIVISION factor .)
+
+
+state 24
+
+    (8) term -> term RESTO factor .
+
+    MULTIPLICACION  reduce using rule 8 (term -> term RESTO factor .)
+    DIVISION        reduce using rule 8 (term -> term RESTO factor .)
+    RESTO           reduce using rule 8 (term -> term RESTO factor .)
+    SUMA            reduce using rule 8 (term -> term RESTO factor .)
+    RESTA           reduce using rule 8 (term -> term RESTO factor .)
+    $end            reduce using rule 8 (term -> term RESTO factor .)
+    PARENTECISIZQ   reduce using rule 8 (term -> term RESTO factor .)
+    PARENTECISDER   reduce using rule 8 (term -> term RESTO factor .)
+
+
+state 25
+
+    (11) factor -> PARENTECISIZQ expression PARENTECISDER .
+
+    MULTIPLICACION  reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    DIVISION        reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    RESTO           reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    SUMA            reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    RESTA           reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    $end            reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    PARENTECISIZQ   reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    PARENTECISDER   reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+

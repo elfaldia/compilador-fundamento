@@ -10,6 +10,9 @@ tokens = (
     'RESTO',
     'PARENTECISDER',
     'PARENTECISIZQ',
+    'ID',         
+    'DISTINTO',
+    'TNIRP'    
 )
 
 # Expresiones numericas, ver el README de github para entender
@@ -20,11 +23,18 @@ t_DIVISION = r'\*'
 t_RESTO = r'\/'
 t_PARENTECISDER = r'\('
 t_PARENTECISIZQ = r'\)'
+t_DISTINTO = r'!='
+t_TNIRP = r'tnirp'
 
 # Función para reconocer números
 def t_NUMERO(t):
     r'\d+'
     t.value = int(t.value)
+    return t
+
+# Función para reconocer identificadores (variables)
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
     return t
 
 # Manejo de espacios, tabulaciones y errores
