@@ -1,67 +1,78 @@
 import ply.yacc as yacc
-from lexer import tokens 
+from lexer import tokens
 
 # Diccionario para almacenar las variables
 variables = {}
 
 # Reglas de gramática
 def p_statement_assign(p):
-    'statement : ID DISTINTO expression'
+    'statement : IDENTIFIER ASSIGN expression'
     variables[p[1]] = p[3]
-    print(f"{p[3]}") 
 
-def p_statement_tnirp(p):
-    '''statement : TNIRP 
-                 | PARENTECISIZQ expression PARENTECISDER'''
-    print(f"{p[3]}") 
+def p_statement_print(p):
+    'statement : PRINT LPAREN expression RPAREN'
+    print(p[3])
 
-# Expresiones básicas
-def p_expression(p):
-    '''expression : expression SUMA term
-                  | expression RESTA term
-                  | term'''
-    if len(p) == 4:
-        if p[2] == '-':
-            p[0] = p[1] + p[3]
-        elif p[2] == '+':
-            p[0] = p[1] - p[3]
-    else:
-        p[0] = p[1]
+def p_statement_if(p):
+    '''statement : IF LPAREN expression RPAREN LBRACE statements RBRACE
+                 | IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE'''
+    if p[3]:  
+        p[0] = p[6]  
+    elif len(p) == 11:  
+        p[0] = p[10]  
 
-# Términos básicos
-def p_term(p):
-    '''term : term MULTIPLICACION factor
-            | term DIVISION factor
-            | term RESTO factor
-            | factor'''
-    if len(p) == 4:
-        if p[2] == '%':
-            p[0] = p[1] * p[3]
-        elif p[2] == '*':
-            p[0] = p[1] / p[3]
-        elif p[2] == '/':
-            p[0] = p[1] % p[3]
-    else:
-        p[0] = p[1]
+# Definir conjunto de declaraciones
+def p_statements(p):
+    '''statements : statement
+                  | statements statement'''
+    pass
 
-# Factores (número, expresión entre paréntesis o variable)
-def p_factor(p):
-    '''factor : NUMERO
-              | PARENTECISIZQ expression PARENTECISDER
-              | ID'''
-    if len(p) == 2:
-        if isinstance(p[1], str): 
-            if p[1] in variables:
-                p[0] = variables[p[1]]  
-            else:
-                print(f"Error: variable '{p[1]}' no definida")
-                p[0] = 0  
-        else:
-            p[0] = p[1] 
-    else:
-        p[0] = p[2] 
+# Expresiones lógicas
+def p_expression_logic(p):
+    '''expression : NEGACION expression
+                  | expression AND expression
+                  | expression OR expression'''
+    if p[1] == '||': 
+        p[0] = not p[2]
+    elif p[2] == '!!': 
+        p[0] = p[1] and p[3]
+    elif p[2] == '&&':  
+        p[0] = p[1] or p[3]
 
-# Manejo de errores
+# Expresiones matemáticas
+def p_expression_binop(p):
+    '''expression : expression PLUS expression
+                  | expression MINUS expression
+                  | expression MULTIPLY expression
+                  | expression DIVIDE expression
+                  | expression MOD expression'''
+    if p[2] == '-':
+        p[0] = p[1] + p[3]
+    elif p[2] == '+':
+        p[0] = p[1] - p[3]
+    elif p[2] == '%':
+        p[0] = p[1] * p[3]
+    elif p[2] == '*':
+        p[0] = p[1] / p[3]
+    elif p[2] == '/':
+        p[0] = p[1] % p[3]
+
+def p_expression_group(p):
+    'expression : LPAREN expression RPAREN'
+    p[0] = p[2]
+
+def p_expression_number(p):
+    'expression : NUMBER'
+    p[0] = p[1]
+
+def p_expression_string(p):
+    'expression : STRING'
+    p[0] = p[1]
+
+def p_expression_identifier(p):
+    'expression : IDENTIFIER'
+    p[0] = variables.get(p[1], 0)
+
 def p_error(p):
     print("Error de sintaxis")
 

@@ -3,51 +3,67 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Grammar
 
 Rule 0     S' -> statement
-Rule 1     statement -> ID DISTINTO expression
-Rule 2     statement -> TNIRP PARENTECISDER expression PARENTECISIZQ
-Rule 3     expression -> expression SUMA term
-Rule 4     expression -> expression RESTA term
-Rule 5     expression -> term
-Rule 6     term -> term MULTIPLICACION factor
-Rule 7     term -> term DIVISION factor
-Rule 8     term -> term RESTO factor
-Rule 9     term -> factor
-Rule 10    factor -> NUMERO
-Rule 11    factor -> PARENTECISIZQ expression PARENTECISDER
-Rule 12    factor -> ID
+Rule 1     statement -> IDENTIFIER ASSIGN expression
+Rule 2     statement -> PRINT LPAREN expression RPAREN
+Rule 3     statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE
+Rule 4     statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+Rule 5     statements -> statement
+Rule 6     statements -> statements statement
+Rule 7     expression -> NEGACION expression
+Rule 8     expression -> expression AND expression
+Rule 9     expression -> expression OR expression
+Rule 10    expression -> expression PLUS expression
+Rule 11    expression -> expression MINUS expression
+Rule 12    expression -> expression MULTIPLY expression
+Rule 13    expression -> expression DIVIDE expression
+Rule 14    expression -> expression MOD expression
+Rule 15    expression -> LPAREN expression RPAREN
+Rule 16    expression -> NUMBER
+Rule 17    expression -> STRING
+Rule 18    expression -> IDENTIFIER
 
 Terminals, with rules where they appear
 
-DISTINTO             : 1
-DIVISION             : 7
-ID                   : 1 12
-MULTIPLICACION       : 6
-NUMERO               : 10
-PARENTECISDER        : 2 11
-PARENTECISIZQ        : 2 11
-RESTA                : 4
-RESTO                : 8
-SUMA                 : 3
-TNIRP                : 2
+AND                  : 8
+ASSIGN               : 1
+DIVIDE               : 13
+ELSE                 : 4
+IDENTIFIER           : 1 18
+IF                   : 3 4
+LBRACE               : 3 4 4
+LPAREN               : 2 3 4 15
+MINUS                : 11
+MOD                  : 14
+MULTIPLY             : 12
+NEGACION             : 7
+NUMBER               : 16
+OR                   : 9
+PLUS                 : 10
+PRINT                : 2
+RBRACE               : 3 4 4
+RPAREN               : 2 3 4 15
+STRING               : 17
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 2 3 4 11
-factor               : 6 7 8 9
-statement            : 0
-term                 : 3 4 5 6 7 8
+expression           : 1 2 3 4 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15
+statement            : 5 6 0
+statements           : 3 4 4 6
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . statement
-    (1) statement -> . ID DISTINTO expression
-    (2) statement -> . TNIRP PARENTECISDER expression PARENTECISIZQ
+    (1) statement -> . IDENTIFIER ASSIGN expression
+    (2) statement -> . PRINT LPAREN expression RPAREN
+    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
 
-    ID              shift and go to state 2
-    TNIRP           shift and go to state 3
+    IDENTIFIER      shift and go to state 2
+    PRINT           shift and go to state 3
+    IF              shift and go to state 4
 
     statement                      shift and go to state 1
 
@@ -59,344 +75,1001 @@ state 1
 
 state 2
 
-    (1) statement -> ID . DISTINTO expression
+    (1) statement -> IDENTIFIER . ASSIGN expression
 
-    DISTINTO        shift and go to state 4
+    ASSIGN          shift and go to state 5
 
 
 state 3
 
-    (2) statement -> TNIRP . PARENTECISDER expression PARENTECISIZQ
+    (2) statement -> PRINT . LPAREN expression RPAREN
 
-    PARENTECISDER   shift and go to state 5
+    LPAREN          shift and go to state 6
 
 
 state 4
 
-    (1) statement -> ID DISTINTO . expression
-    (3) expression -> . expression SUMA term
-    (4) expression -> . expression RESTA term
-    (5) expression -> . term
-    (6) term -> . term MULTIPLICACION factor
-    (7) term -> . term DIVISION factor
-    (8) term -> . term RESTO factor
-    (9) term -> . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (3) statement -> IF . LPAREN expression RPAREN LBRACE statements RBRACE
+    (4) statement -> IF . LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    LPAREN          shift and go to state 7
 
-    expression                     shift and go to state 7
-    term                           shift and go to state 8
-    factor                         shift and go to state 9
 
 state 5
 
-    (2) statement -> TNIRP PARENTECISDER . expression PARENTECISIZQ
-    (3) expression -> . expression SUMA term
-    (4) expression -> . expression RESTA term
-    (5) expression -> . term
-    (6) term -> . term MULTIPLICACION factor
-    (7) term -> . term DIVISION factor
-    (8) term -> . term RESTO factor
-    (9) term -> . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (1) statement -> IDENTIFIER ASSIGN . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
-    expression                     shift and go to state 12
-    term                           shift and go to state 8
-    factor                         shift and go to state 9
+    expression                     shift and go to state 9
 
 state 6
 
-    (12) factor -> ID .
+    (2) statement -> PRINT LPAREN . expression RPAREN
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    MULTIPLICACION  reduce using rule 12 (factor -> ID .)
-    DIVISION        reduce using rule 12 (factor -> ID .)
-    RESTO           reduce using rule 12 (factor -> ID .)
-    SUMA            reduce using rule 12 (factor -> ID .)
-    RESTA           reduce using rule 12 (factor -> ID .)
-    $end            reduce using rule 12 (factor -> ID .)
-    PARENTECISIZQ   reduce using rule 12 (factor -> ID .)
-    PARENTECISDER   reduce using rule 12 (factor -> ID .)
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 14
 
 state 7
 
-    (1) statement -> ID DISTINTO expression .
-    (3) expression -> expression . SUMA term
-    (4) expression -> expression . RESTA term
+    (3) statement -> IF LPAREN . expression RPAREN LBRACE statements RBRACE
+    (4) statement -> IF LPAREN . expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    $end            reduce using rule 1 (statement -> ID DISTINTO expression .)
-    SUMA            shift and go to state 13
-    RESTA           shift and go to state 14
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 15
 
 state 8
 
-    (5) expression -> term .
-    (6) term -> term . MULTIPLICACION factor
-    (7) term -> term . DIVISION factor
-    (8) term -> term . RESTO factor
+    (18) expression -> IDENTIFIER .
 
-    SUMA            reduce using rule 5 (expression -> term .)
-    RESTA           reduce using rule 5 (expression -> term .)
-    $end            reduce using rule 5 (expression -> term .)
-    PARENTECISIZQ   reduce using rule 5 (expression -> term .)
-    PARENTECISDER   reduce using rule 5 (expression -> term .)
-    MULTIPLICACION  shift and go to state 15
-    DIVISION        shift and go to state 16
-    RESTO           shift and go to state 17
+    AND             reduce using rule 18 (expression -> IDENTIFIER .)
+    OR              reduce using rule 18 (expression -> IDENTIFIER .)
+    PLUS            reduce using rule 18 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 18 (expression -> IDENTIFIER .)
+    MULTIPLY        reduce using rule 18 (expression -> IDENTIFIER .)
+    DIVIDE          reduce using rule 18 (expression -> IDENTIFIER .)
+    MOD             reduce using rule 18 (expression -> IDENTIFIER .)
+    $end            reduce using rule 18 (expression -> IDENTIFIER .)
+    RBRACE          reduce using rule 18 (expression -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 18 (expression -> IDENTIFIER .)
+    PRINT           reduce using rule 18 (expression -> IDENTIFIER .)
+    IF              reduce using rule 18 (expression -> IDENTIFIER .)
+    RPAREN          reduce using rule 18 (expression -> IDENTIFIER .)
 
 
 state 9
 
-    (9) term -> factor .
+    (1) statement -> IDENTIFIER ASSIGN expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
 
-    MULTIPLICACION  reduce using rule 9 (term -> factor .)
-    DIVISION        reduce using rule 9 (term -> factor .)
-    RESTO           reduce using rule 9 (term -> factor .)
-    SUMA            reduce using rule 9 (term -> factor .)
-    RESTA           reduce using rule 9 (term -> factor .)
-    $end            reduce using rule 9 (term -> factor .)
-    PARENTECISIZQ   reduce using rule 9 (term -> factor .)
-    PARENTECISDER   reduce using rule 9 (term -> factor .)
+    $end            reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
+    RBRACE          reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
+    IDENTIFIER      reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
+    PRINT           reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
+    IF              reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
 
 
 state 10
 
-    (10) factor -> NUMERO .
+    (7) expression -> NEGACION . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    MULTIPLICACION  reduce using rule 10 (factor -> NUMERO .)
-    DIVISION        reduce using rule 10 (factor -> NUMERO .)
-    RESTO           reduce using rule 10 (factor -> NUMERO .)
-    SUMA            reduce using rule 10 (factor -> NUMERO .)
-    RESTA           reduce using rule 10 (factor -> NUMERO .)
-    $end            reduce using rule 10 (factor -> NUMERO .)
-    PARENTECISIZQ   reduce using rule 10 (factor -> NUMERO .)
-    PARENTECISDER   reduce using rule 10 (factor -> NUMERO .)
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 23
 
 state 11
 
-    (11) factor -> PARENTECISIZQ . expression PARENTECISDER
-    (3) expression -> . expression SUMA term
-    (4) expression -> . expression RESTA term
-    (5) expression -> . term
-    (6) term -> . term MULTIPLICACION factor
-    (7) term -> . term DIVISION factor
-    (8) term -> . term RESTO factor
-    (9) term -> . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (15) expression -> LPAREN . expression RPAREN
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
-    expression                     shift and go to state 18
-    term                           shift and go to state 8
-    factor                         shift and go to state 9
+    expression                     shift and go to state 24
 
 state 12
 
-    (2) statement -> TNIRP PARENTECISDER expression . PARENTECISIZQ
-    (3) expression -> expression . SUMA term
-    (4) expression -> expression . RESTA term
+    (16) expression -> NUMBER .
 
-    PARENTECISIZQ   shift and go to state 19
-    SUMA            shift and go to state 13
-    RESTA           shift and go to state 14
+    AND             reduce using rule 16 (expression -> NUMBER .)
+    OR              reduce using rule 16 (expression -> NUMBER .)
+    PLUS            reduce using rule 16 (expression -> NUMBER .)
+    MINUS           reduce using rule 16 (expression -> NUMBER .)
+    MULTIPLY        reduce using rule 16 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 16 (expression -> NUMBER .)
+    MOD             reduce using rule 16 (expression -> NUMBER .)
+    $end            reduce using rule 16 (expression -> NUMBER .)
+    RBRACE          reduce using rule 16 (expression -> NUMBER .)
+    IDENTIFIER      reduce using rule 16 (expression -> NUMBER .)
+    PRINT           reduce using rule 16 (expression -> NUMBER .)
+    IF              reduce using rule 16 (expression -> NUMBER .)
+    RPAREN          reduce using rule 16 (expression -> NUMBER .)
 
 
 state 13
 
-    (3) expression -> expression SUMA . term
-    (6) term -> . term MULTIPLICACION factor
-    (7) term -> . term DIVISION factor
-    (8) term -> . term RESTO factor
-    (9) term -> . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (17) expression -> STRING .
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    AND             reduce using rule 17 (expression -> STRING .)
+    OR              reduce using rule 17 (expression -> STRING .)
+    PLUS            reduce using rule 17 (expression -> STRING .)
+    MINUS           reduce using rule 17 (expression -> STRING .)
+    MULTIPLY        reduce using rule 17 (expression -> STRING .)
+    DIVIDE          reduce using rule 17 (expression -> STRING .)
+    MOD             reduce using rule 17 (expression -> STRING .)
+    $end            reduce using rule 17 (expression -> STRING .)
+    RBRACE          reduce using rule 17 (expression -> STRING .)
+    IDENTIFIER      reduce using rule 17 (expression -> STRING .)
+    PRINT           reduce using rule 17 (expression -> STRING .)
+    IF              reduce using rule 17 (expression -> STRING .)
+    RPAREN          reduce using rule 17 (expression -> STRING .)
 
-    term                           shift and go to state 20
-    factor                         shift and go to state 9
 
 state 14
 
-    (4) expression -> expression RESTA . term
-    (6) term -> . term MULTIPLICACION factor
-    (7) term -> . term DIVISION factor
-    (8) term -> . term RESTO factor
-    (9) term -> . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (2) statement -> PRINT LPAREN expression . RPAREN
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    RPAREN          shift and go to state 25
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
 
-    term                           shift and go to state 21
-    factor                         shift and go to state 9
 
 state 15
 
-    (6) term -> term MULTIPLICACION . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (3) statement -> IF LPAREN expression . RPAREN LBRACE statements RBRACE
+    (4) statement -> IF LPAREN expression . RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    RPAREN          shift and go to state 26
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
 
-    factor                         shift and go to state 22
 
 state 16
 
-    (7) term -> term DIVISION . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (8) expression -> expression AND . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
-    factor                         shift and go to state 23
+    expression                     shift and go to state 27
 
 state 17
 
-    (8) term -> term RESTO . factor
-    (10) factor -> . NUMERO
-    (11) factor -> . PARENTECISIZQ expression PARENTECISDER
-    (12) factor -> . ID
+    (9) expression -> expression OR . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    NUMERO          shift and go to state 10
-    PARENTECISIZQ   shift and go to state 11
-    ID              shift and go to state 6
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
-    factor                         shift and go to state 24
+    expression                     shift and go to state 28
 
 state 18
 
-    (11) factor -> PARENTECISIZQ expression . PARENTECISDER
-    (3) expression -> expression . SUMA term
-    (4) expression -> expression . RESTA term
+    (10) expression -> expression PLUS . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    PARENTECISDER   shift and go to state 25
-    SUMA            shift and go to state 13
-    RESTA           shift and go to state 14
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 29
 
 state 19
 
-    (2) statement -> TNIRP PARENTECISDER expression PARENTECISIZQ .
+    (11) expression -> expression MINUS . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    $end            reduce using rule 2 (statement -> TNIRP PARENTECISDER expression PARENTECISIZQ .)
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 30
 
 state 20
 
-    (3) expression -> expression SUMA term .
-    (6) term -> term . MULTIPLICACION factor
-    (7) term -> term . DIVISION factor
-    (8) term -> term . RESTO factor
+    (12) expression -> expression MULTIPLY . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    SUMA            reduce using rule 3 (expression -> expression SUMA term .)
-    RESTA           reduce using rule 3 (expression -> expression SUMA term .)
-    $end            reduce using rule 3 (expression -> expression SUMA term .)
-    PARENTECISIZQ   reduce using rule 3 (expression -> expression SUMA term .)
-    PARENTECISDER   reduce using rule 3 (expression -> expression SUMA term .)
-    MULTIPLICACION  shift and go to state 15
-    DIVISION        shift and go to state 16
-    RESTO           shift and go to state 17
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 31
 
 state 21
 
-    (4) expression -> expression RESTA term .
-    (6) term -> term . MULTIPLICACION factor
-    (7) term -> term . DIVISION factor
-    (8) term -> term . RESTO factor
+    (13) expression -> expression DIVIDE . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    SUMA            reduce using rule 4 (expression -> expression RESTA term .)
-    RESTA           reduce using rule 4 (expression -> expression RESTA term .)
-    $end            reduce using rule 4 (expression -> expression RESTA term .)
-    PARENTECISIZQ   reduce using rule 4 (expression -> expression RESTA term .)
-    PARENTECISDER   reduce using rule 4 (expression -> expression RESTA term .)
-    MULTIPLICACION  shift and go to state 15
-    DIVISION        shift and go to state 16
-    RESTO           shift and go to state 17
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 32
 
 state 22
 
-    (6) term -> term MULTIPLICACION factor .
+    (14) expression -> expression MOD . expression
+    (7) expression -> . NEGACION expression
+    (8) expression -> . expression AND expression
+    (9) expression -> . expression OR expression
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+    (12) expression -> . expression MULTIPLY expression
+    (13) expression -> . expression DIVIDE expression
+    (14) expression -> . expression MOD expression
+    (15) expression -> . LPAREN expression RPAREN
+    (16) expression -> . NUMBER
+    (17) expression -> . STRING
+    (18) expression -> . IDENTIFIER
 
-    MULTIPLICACION  reduce using rule 6 (term -> term MULTIPLICACION factor .)
-    DIVISION        reduce using rule 6 (term -> term MULTIPLICACION factor .)
-    RESTO           reduce using rule 6 (term -> term MULTIPLICACION factor .)
-    SUMA            reduce using rule 6 (term -> term MULTIPLICACION factor .)
-    RESTA           reduce using rule 6 (term -> term MULTIPLICACION factor .)
-    $end            reduce using rule 6 (term -> term MULTIPLICACION factor .)
-    PARENTECISIZQ   reduce using rule 6 (term -> term MULTIPLICACION factor .)
-    PARENTECISDER   reduce using rule 6 (term -> term MULTIPLICACION factor .)
+    NEGACION        shift and go to state 10
+    LPAREN          shift and go to state 11
+    NUMBER          shift and go to state 12
+    STRING          shift and go to state 13
+    IDENTIFIER      shift and go to state 8
 
+    expression                     shift and go to state 33
 
 state 23
 
-    (7) term -> term DIVISION factor .
+    (7) expression -> NEGACION expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
 
-    MULTIPLICACION  reduce using rule 7 (term -> term DIVISION factor .)
-    DIVISION        reduce using rule 7 (term -> term DIVISION factor .)
-    RESTO           reduce using rule 7 (term -> term DIVISION factor .)
-    SUMA            reduce using rule 7 (term -> term DIVISION factor .)
-    RESTA           reduce using rule 7 (term -> term DIVISION factor .)
-    $end            reduce using rule 7 (term -> term DIVISION factor .)
-    PARENTECISIZQ   reduce using rule 7 (term -> term DIVISION factor .)
-    PARENTECISDER   reduce using rule 7 (term -> term DIVISION factor .)
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 7 (expression -> NEGACION expression .)
+    RBRACE          reduce using rule 7 (expression -> NEGACION expression .)
+    IDENTIFIER      reduce using rule 7 (expression -> NEGACION expression .)
+    PRINT           reduce using rule 7 (expression -> NEGACION expression .)
+    IF              reduce using rule 7 (expression -> NEGACION expression .)
+    RPAREN          reduce using rule 7 (expression -> NEGACION expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 7 (expression -> NEGACION expression .) ]
+  ! OR              [ reduce using rule 7 (expression -> NEGACION expression .) ]
+  ! PLUS            [ reduce using rule 7 (expression -> NEGACION expression .) ]
+  ! MINUS           [ reduce using rule 7 (expression -> NEGACION expression .) ]
+  ! MULTIPLY        [ reduce using rule 7 (expression -> NEGACION expression .) ]
+  ! DIVIDE          [ reduce using rule 7 (expression -> NEGACION expression .) ]
+  ! MOD             [ reduce using rule 7 (expression -> NEGACION expression .) ]
 
 
 state 24
 
-    (8) term -> term RESTO factor .
+    (15) expression -> LPAREN expression . RPAREN
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
 
-    MULTIPLICACION  reduce using rule 8 (term -> term RESTO factor .)
-    DIVISION        reduce using rule 8 (term -> term RESTO factor .)
-    RESTO           reduce using rule 8 (term -> term RESTO factor .)
-    SUMA            reduce using rule 8 (term -> term RESTO factor .)
-    RESTA           reduce using rule 8 (term -> term RESTO factor .)
-    $end            reduce using rule 8 (term -> term RESTO factor .)
-    PARENTECISIZQ   reduce using rule 8 (term -> term RESTO factor .)
-    PARENTECISDER   reduce using rule 8 (term -> term RESTO factor .)
+    RPAREN          shift and go to state 34
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
 
 
 state 25
 
-    (11) factor -> PARENTECISIZQ expression PARENTECISDER .
+    (2) statement -> PRINT LPAREN expression RPAREN .
 
-    MULTIPLICACION  reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
-    DIVISION        reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
-    RESTO           reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
-    SUMA            reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
-    RESTA           reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
-    $end            reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
-    PARENTECISIZQ   reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
-    PARENTECISDER   reduce using rule 11 (factor -> PARENTECISIZQ expression PARENTECISDER .)
+    $end            reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
+    IDENTIFIER      reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
+    PRINT           reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
+    IF              reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
 
+
+state 26
+
+    (3) statement -> IF LPAREN expression RPAREN . LBRACE statements RBRACE
+    (4) statement -> IF LPAREN expression RPAREN . LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 35
+
+
+state 27
+
+    (8) expression -> expression AND expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 8 (expression -> expression AND expression .)
+    RBRACE          reduce using rule 8 (expression -> expression AND expression .)
+    IDENTIFIER      reduce using rule 8 (expression -> expression AND expression .)
+    PRINT           reduce using rule 8 (expression -> expression AND expression .)
+    IF              reduce using rule 8 (expression -> expression AND expression .)
+    RPAREN          reduce using rule 8 (expression -> expression AND expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 8 (expression -> expression AND expression .) ]
+  ! OR              [ reduce using rule 8 (expression -> expression AND expression .) ]
+  ! PLUS            [ reduce using rule 8 (expression -> expression AND expression .) ]
+  ! MINUS           [ reduce using rule 8 (expression -> expression AND expression .) ]
+  ! MULTIPLY        [ reduce using rule 8 (expression -> expression AND expression .) ]
+  ! DIVIDE          [ reduce using rule 8 (expression -> expression AND expression .) ]
+  ! MOD             [ reduce using rule 8 (expression -> expression AND expression .) ]
+
+
+state 28
+
+    (9) expression -> expression OR expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 9 (expression -> expression OR expression .)
+    RBRACE          reduce using rule 9 (expression -> expression OR expression .)
+    IDENTIFIER      reduce using rule 9 (expression -> expression OR expression .)
+    PRINT           reduce using rule 9 (expression -> expression OR expression .)
+    IF              reduce using rule 9 (expression -> expression OR expression .)
+    RPAREN          reduce using rule 9 (expression -> expression OR expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 9 (expression -> expression OR expression .) ]
+  ! OR              [ reduce using rule 9 (expression -> expression OR expression .) ]
+  ! PLUS            [ reduce using rule 9 (expression -> expression OR expression .) ]
+  ! MINUS           [ reduce using rule 9 (expression -> expression OR expression .) ]
+  ! MULTIPLY        [ reduce using rule 9 (expression -> expression OR expression .) ]
+  ! DIVIDE          [ reduce using rule 9 (expression -> expression OR expression .) ]
+  ! MOD             [ reduce using rule 9 (expression -> expression OR expression .) ]
+
+
+state 29
+
+    (10) expression -> expression PLUS expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 10 (expression -> expression PLUS expression .)
+    RBRACE          reduce using rule 10 (expression -> expression PLUS expression .)
+    IDENTIFIER      reduce using rule 10 (expression -> expression PLUS expression .)
+    PRINT           reduce using rule 10 (expression -> expression PLUS expression .)
+    IF              reduce using rule 10 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 10 (expression -> expression PLUS expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+  ! OR              [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+  ! MULTIPLY        [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+  ! MOD             [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+
+
+state 30
+
+    (11) expression -> expression MINUS expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 11 (expression -> expression MINUS expression .)
+    RBRACE          reduce using rule 11 (expression -> expression MINUS expression .)
+    IDENTIFIER      reduce using rule 11 (expression -> expression MINUS expression .)
+    PRINT           reduce using rule 11 (expression -> expression MINUS expression .)
+    IF              reduce using rule 11 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 11 (expression -> expression MINUS expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+  ! OR              [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+  ! MULTIPLY        [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+  ! MOD             [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+
+
+state 31
+
+    (12) expression -> expression MULTIPLY expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 12 (expression -> expression MULTIPLY expression .)
+    RBRACE          reduce using rule 12 (expression -> expression MULTIPLY expression .)
+    IDENTIFIER      reduce using rule 12 (expression -> expression MULTIPLY expression .)
+    PRINT           reduce using rule 12 (expression -> expression MULTIPLY expression .)
+    IF              reduce using rule 12 (expression -> expression MULTIPLY expression .)
+    RPAREN          reduce using rule 12 (expression -> expression MULTIPLY expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 12 (expression -> expression MULTIPLY expression .) ]
+  ! OR              [ reduce using rule 12 (expression -> expression MULTIPLY expression .) ]
+  ! PLUS            [ reduce using rule 12 (expression -> expression MULTIPLY expression .) ]
+  ! MINUS           [ reduce using rule 12 (expression -> expression MULTIPLY expression .) ]
+  ! MULTIPLY        [ reduce using rule 12 (expression -> expression MULTIPLY expression .) ]
+  ! DIVIDE          [ reduce using rule 12 (expression -> expression MULTIPLY expression .) ]
+  ! MOD             [ reduce using rule 12 (expression -> expression MULTIPLY expression .) ]
+
+
+state 32
+
+    (13) expression -> expression DIVIDE expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 13 (expression -> expression DIVIDE expression .)
+    RBRACE          reduce using rule 13 (expression -> expression DIVIDE expression .)
+    IDENTIFIER      reduce using rule 13 (expression -> expression DIVIDE expression .)
+    PRINT           reduce using rule 13 (expression -> expression DIVIDE expression .)
+    IF              reduce using rule 13 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 13 (expression -> expression DIVIDE expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 13 (expression -> expression DIVIDE expression .) ]
+  ! OR              [ reduce using rule 13 (expression -> expression DIVIDE expression .) ]
+  ! PLUS            [ reduce using rule 13 (expression -> expression DIVIDE expression .) ]
+  ! MINUS           [ reduce using rule 13 (expression -> expression DIVIDE expression .) ]
+  ! MULTIPLY        [ reduce using rule 13 (expression -> expression DIVIDE expression .) ]
+  ! DIVIDE          [ reduce using rule 13 (expression -> expression DIVIDE expression .) ]
+  ! MOD             [ reduce using rule 13 (expression -> expression DIVIDE expression .) ]
+
+
+state 33
+
+    (14) expression -> expression MOD expression .
+    (8) expression -> expression . AND expression
+    (9) expression -> expression . OR expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+    (12) expression -> expression . MULTIPLY expression
+    (13) expression -> expression . DIVIDE expression
+    (14) expression -> expression . MOD expression
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 14 (expression -> expression MOD expression .)
+    RBRACE          reduce using rule 14 (expression -> expression MOD expression .)
+    IDENTIFIER      reduce using rule 14 (expression -> expression MOD expression .)
+    PRINT           reduce using rule 14 (expression -> expression MOD expression .)
+    IF              reduce using rule 14 (expression -> expression MOD expression .)
+    RPAREN          reduce using rule 14 (expression -> expression MOD expression .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    MULTIPLY        shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MOD             shift and go to state 22
+
+  ! AND             [ reduce using rule 14 (expression -> expression MOD expression .) ]
+  ! OR              [ reduce using rule 14 (expression -> expression MOD expression .) ]
+  ! PLUS            [ reduce using rule 14 (expression -> expression MOD expression .) ]
+  ! MINUS           [ reduce using rule 14 (expression -> expression MOD expression .) ]
+  ! MULTIPLY        [ reduce using rule 14 (expression -> expression MOD expression .) ]
+  ! DIVIDE          [ reduce using rule 14 (expression -> expression MOD expression .) ]
+  ! MOD             [ reduce using rule 14 (expression -> expression MOD expression .) ]
+
+
+state 34
+
+    (15) expression -> LPAREN expression RPAREN .
+
+    AND             reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    MULTIPLY        reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    MOD             reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    IDENTIFIER      reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    PRINT           reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    IF              reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 15 (expression -> LPAREN expression RPAREN .)
+
+
+state 35
+
+    (3) statement -> IF LPAREN expression RPAREN LBRACE . statements RBRACE
+    (4) statement -> IF LPAREN expression RPAREN LBRACE . statements RBRACE ELSE LBRACE statements RBRACE
+    (5) statements -> . statement
+    (6) statements -> . statements statement
+    (1) statement -> . IDENTIFIER ASSIGN expression
+    (2) statement -> . PRINT LPAREN expression RPAREN
+    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    IDENTIFIER      shift and go to state 2
+    PRINT           shift and go to state 3
+    IF              shift and go to state 4
+
+    statements                     shift and go to state 36
+    statement                      shift and go to state 37
+
+state 36
+
+    (3) statement -> IF LPAREN expression RPAREN LBRACE statements . RBRACE
+    (4) statement -> IF LPAREN expression RPAREN LBRACE statements . RBRACE ELSE LBRACE statements RBRACE
+    (6) statements -> statements . statement
+    (1) statement -> . IDENTIFIER ASSIGN expression
+    (2) statement -> . PRINT LPAREN expression RPAREN
+    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    RBRACE          shift and go to state 38
+    IDENTIFIER      shift and go to state 2
+    PRINT           shift and go to state 3
+    IF              shift and go to state 4
+
+    statement                      shift and go to state 39
+
+state 37
+
+    (5) statements -> statement .
+
+    RBRACE          reduce using rule 5 (statements -> statement .)
+    IDENTIFIER      reduce using rule 5 (statements -> statement .)
+    PRINT           reduce using rule 5 (statements -> statement .)
+    IF              reduce using rule 5 (statements -> statement .)
+
+
+state 38
+
+    (3) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .
+    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE . ELSE LBRACE statements RBRACE
+
+    $end            reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
+    RBRACE          reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
+    IDENTIFIER      reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
+    PRINT           reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
+    IF              reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
+    ELSE            shift and go to state 40
+
+
+state 39
+
+    (6) statements -> statements statement .
+
+    RBRACE          reduce using rule 6 (statements -> statements statement .)
+    IDENTIFIER      reduce using rule 6 (statements -> statements statement .)
+    PRINT           reduce using rule 6 (statements -> statements statement .)
+    IF              reduce using rule 6 (statements -> statements statement .)
+
+
+state 40
+
+    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE . LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 41
+
+
+state 41
+
+    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE . statements RBRACE
+    (5) statements -> . statement
+    (6) statements -> . statements statement
+    (1) statement -> . IDENTIFIER ASSIGN expression
+    (2) statement -> . PRINT LPAREN expression RPAREN
+    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    IDENTIFIER      shift and go to state 2
+    PRINT           shift and go to state 3
+    IF              shift and go to state 4
+
+    statements                     shift and go to state 42
+    statement                      shift and go to state 37
+
+state 42
+
+    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements . RBRACE
+    (6) statements -> statements . statement
+    (1) statement -> . IDENTIFIER ASSIGN expression
+    (2) statement -> . PRINT LPAREN expression RPAREN
+    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    RBRACE          shift and go to state 43
+    IDENTIFIER      shift and go to state 2
+    PRINT           shift and go to state 3
+    IF              shift and go to state 4
+
+    statement                      shift and go to state 39
+
+state 43
+
+    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .
+
+    $end            reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    RBRACE          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    IDENTIFIER      reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    PRINT           reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    IF              reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for AND in state 23 resolved as shift
+WARNING: shift/reduce conflict for OR in state 23 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 23 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 23 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 23 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 23 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 23 resolved as shift
+WARNING: shift/reduce conflict for AND in state 27 resolved as shift
+WARNING: shift/reduce conflict for OR in state 27 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 27 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 27 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 27 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 27 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 27 resolved as shift
+WARNING: shift/reduce conflict for AND in state 28 resolved as shift
+WARNING: shift/reduce conflict for OR in state 28 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 28 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 28 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 28 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 28 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 28 resolved as shift
+WARNING: shift/reduce conflict for AND in state 29 resolved as shift
+WARNING: shift/reduce conflict for OR in state 29 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 29 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 29 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 29 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 29 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 29 resolved as shift
+WARNING: shift/reduce conflict for AND in state 30 resolved as shift
+WARNING: shift/reduce conflict for OR in state 30 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 30 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 30 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 30 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 30 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 30 resolved as shift
+WARNING: shift/reduce conflict for AND in state 31 resolved as shift
+WARNING: shift/reduce conflict for OR in state 31 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 31 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 31 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 31 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 31 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 31 resolved as shift
+WARNING: shift/reduce conflict for AND in state 32 resolved as shift
+WARNING: shift/reduce conflict for OR in state 32 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 32 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 32 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 32 resolved as shift
+WARNING: shift/reduce conflict for AND in state 33 resolved as shift
+WARNING: shift/reduce conflict for OR in state 33 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 33 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 33 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 33 resolved as shift

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'DISTINTO DIVISION ID MULTIPLICACION NUMERO PARENTECISDER PARENTECISIZQ RESTA RESTO SUMA TNIRPstatement : ID DISTINTO expressionstatement : TNIRP PARENTECISDER expression PARENTECISIZQexpression : expression SUMA term\n                  | expression RESTA term\n                  | termterm : term MULTIPLICACION factor\n            | term DIVISION factor\n            | term RESTO factor\n            | factorfactor : NUMERO\n              | PARENTECISIZQ expression PARENTECISDER\n              | ID'
+_lr_signature = 'AND ASSIGN DIVIDE ELSE ELSE IDENTIFIER IF IF LBRACE LPAREN MINUS MOD MULTIPLY NEGACION NUMBER OR PLUS PRINT PRINT RBRACE RPAREN STRINGstatement : IDENTIFIER ASSIGN expressionstatement : PRINT LPAREN expression RPARENstatement : IF LPAREN expression RPAREN LBRACE statements RBRACE\n                 | IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACEstatements : statement\n                  | statements statementexpression : NEGACION expression\n                  | expression AND expression\n                  | expression OR expressionexpression : expression PLUS expression\n                  | expression MINUS expression\n                  | expression MULTIPLY expression\n                  | expression DIVIDE expression\n                  | expression MOD expressionexpression : LPAREN expression RPARENexpression : NUMBERexpression : STRINGexpression : IDENTIFIER'
     
-_lr_action_items = {'ID':([0,4,5,11,13,14,15,16,17,],[2,6,6,6,6,6,6,6,6,]),'TNIRP':([0,],[3,]),'$end':([1,6,7,8,9,10,19,20,21,22,23,24,25,],[0,-12,-1,-5,-9,-10,-2,-3,-4,-6,-7,-8,-11,]),'DISTINTO':([2,],[4,]),'PARENTECISDER':([3,6,8,9,10,18,20,21,22,23,24,25,],[5,-12,-5,-9,-10,25,-3,-4,-6,-7,-8,-11,]),'NUMERO':([4,5,11,13,14,15,16,17,],[10,10,10,10,10,10,10,10,]),'PARENTECISIZQ':([4,5,6,8,9,10,11,12,13,14,15,16,17,20,21,22,23,24,25,],[11,11,-12,-5,-9,-10,11,19,11,11,11,11,11,-3,-4,-6,-7,-8,-11,]),'MULTIPLICACION':([6,8,9,10,20,21,22,23,24,25,],[-12,15,-9,-10,15,15,-6,-7,-8,-11,]),'DIVISION':([6,8,9,10,20,21,22,23,24,25,],[-12,16,-9,-10,16,16,-6,-7,-8,-11,]),'RESTO':([6,8,9,10,20,21,22,23,24,25,],[-12,17,-9,-10,17,17,-6,-7,-8,-11,]),'SUMA':([6,7,8,9,10,12,18,20,21,22,23,24,25,],[-12,13,-5,-9,-10,13,13,-3,-4,-6,-7,-8,-11,]),'RESTA':([6,7,8,9,10,12,18,20,21,22,23,24,25,],[-12,14,-5,-9,-10,14,14,-3,-4,-6,-7,-8,-11,]),}
+_lr_action_items = {'IDENTIFIER':([0,5,6,7,8,9,10,11,12,13,16,17,18,19,20,21,22,23,25,27,28,29,30,31,32,33,34,35,36,37,38,39,41,42,43,],[2,8,8,8,-18,-1,8,8,-16,-17,8,8,8,8,8,8,8,-7,-2,-8,-9,-10,-11,-12,-13,-14,-15,2,2,-5,-3,-6,2,2,-4,]),'PRINT':([0,8,9,12,13,23,25,27,28,29,30,31,32,33,34,35,36,37,38,39,41,42,43,],[3,-18,-1,-16,-17,-7,-2,-8,-9,-10,-11,-12,-13,-14,-15,3,3,-5,-3,-6,3,3,-4,]),'IF':([0,8,9,12,13,23,25,27,28,29,30,31,32,33,34,35,36,37,38,39,41,42,43,],[4,-18,-1,-16,-17,-7,-2,-8,-9,-10,-11,-12,-13,-14,-15,4,4,-5,-3,-6,4,4,-4,]),'$end':([1,8,9,12,13,23,25,27,28,29,30,31,32,33,34,38,43,],[0,-18,-1,-16,-17,-7,-2,-8,-9,-10,-11,-12,-13,-14,-15,-3,-4,]),'ASSIGN':([2,],[5,]),'LPAREN':([3,4,5,6,7,10,11,16,17,18,19,20,21,22,],[6,7,11,11,11,11,11,11,11,11,11,11,11,11,]),'NEGACION':([5,6,7,10,11,16,17,18,19,20,21,22,],[10,10,10,10,10,10,10,10,10,10,10,10,]),'NUMBER':([5,6,7,10,11,16,17,18,19,20,21,22,],[12,12,12,12,12,12,12,12,12,12,12,12,]),'STRING':([5,6,7,10,11,16,17,18,19,20,21,22,],[13,13,13,13,13,13,13,13,13,13,13,13,]),'AND':([8,9,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,16,-16,-17,16,16,16,16,16,16,16,16,16,16,16,-15,]),'OR':([8,9,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,17,-16,-17,17,17,17,17,17,17,17,17,17,17,17,-15,]),'PLUS':([8,9,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,18,-16,-17,18,18,18,18,18,18,18,18,18,18,18,-15,]),'MINUS':([8,9,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,19,-16,-17,19,19,19,19,19,19,19,19,19,19,19,-15,]),'MULTIPLY':([8,9,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,20,-16,-17,20,20,20,20,20,20,20,20,20,20,20,-15,]),'DIVIDE':([8,9,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,21,-16,-17,21,21,21,21,21,21,21,21,21,21,21,-15,]),'MOD':([8,9,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,22,-16,-17,22,22,22,22,22,22,22,22,22,22,22,-15,]),'RBRACE':([8,9,12,13,23,25,27,28,29,30,31,32,33,34,36,37,38,39,42,43,],[-18,-1,-16,-17,-7,-2,-8,-9,-10,-11,-12,-13,-14,-15,38,-5,-3,-6,43,-4,]),'RPAREN':([8,12,13,14,15,23,24,27,28,29,30,31,32,33,34,],[-18,-16,-17,25,26,-7,34,-8,-9,-10,-11,-12,-13,-14,-15,]),'LBRACE':([26,40,],[35,41,]),'ELSE':([38,],[40,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([4,5,11,],[7,12,18,]),'term':([4,5,11,13,14,],[8,8,8,20,21,]),'factor':([4,5,11,13,14,15,16,17,],[9,9,9,9,9,22,23,24,]),}
+_lr_goto_items = {'statement':([0,35,36,41,42,],[1,37,39,37,39,]),'expression':([5,6,7,10,11,16,17,18,19,20,21,22,],[9,14,15,23,24,27,28,29,30,31,32,33,]),'statements':([35,41,],[36,42,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,16 +27,22 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> ID DISTINTO expression','statement',3,'p_statement_assign','parser.py',9),
-  ('statement -> TNIRP PARENTECISDER expression PARENTECISIZQ','statement',4,'p_statement_tnirp','parser.py',14),
-  ('expression -> expression SUMA term','expression',3,'p_expression','parser.py',19),
-  ('expression -> expression RESTA term','expression',3,'p_expression','parser.py',20),
-  ('expression -> term','expression',1,'p_expression','parser.py',21),
-  ('term -> term MULTIPLICACION factor','term',3,'p_term','parser.py',32),
-  ('term -> term DIVISION factor','term',3,'p_term','parser.py',33),
-  ('term -> term RESTO factor','term',3,'p_term','parser.py',34),
-  ('term -> factor','term',1,'p_term','parser.py',35),
-  ('factor -> NUMERO','factor',1,'p_factor','parser.py',48),
-  ('factor -> PARENTECISIZQ expression PARENTECISDER','factor',3,'p_factor','parser.py',49),
-  ('factor -> ID','factor',1,'p_factor','parser.py',50),
+  ('statement -> IDENTIFIER ASSIGN expression','statement',3,'p_statement_assign','parser.py',9),
+  ('statement -> PRINT LPAREN expression RPAREN','statement',4,'p_statement_print','parser.py',13),
+  ('statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE','statement',7,'p_statement_if','parser.py',17),
+  ('statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE','statement',11,'p_statement_if','parser.py',18),
+  ('statements -> statement','statements',1,'p_statements','parser.py',26),
+  ('statements -> statements statement','statements',2,'p_statements','parser.py',27),
+  ('expression -> NEGACION expression','expression',2,'p_expression_logic','parser.py',32),
+  ('expression -> expression AND expression','expression',3,'p_expression_logic','parser.py',33),
+  ('expression -> expression OR expression','expression',3,'p_expression_logic','parser.py',34),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','parser.py',44),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','parser.py',45),
+  ('expression -> expression MULTIPLY expression','expression',3,'p_expression_binop','parser.py',46),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','parser.py',47),
+  ('expression -> expression MOD expression','expression',3,'p_expression_binop','parser.py',48),
+  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','parser.py',61),
+  ('expression -> NUMBER','expression',1,'p_expression_number','parser.py',65),
+  ('expression -> STRING','expression',1,'p_expression_string','parser.py',69),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_identifier','parser.py',73),
 ]
