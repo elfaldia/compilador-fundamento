@@ -1,45 +1,62 @@
 import ply.yacc as yacc
 from lexer import tokens
 
-# Diccionario para almacenar las variables
 variables = {}
 
-# Reglas de gramática
 def p_statement_assign(p):
     'statement : IDENTIFIER ASSIGN expression'
     variables[p[1]] = p[3]
 
 def p_statement_print(p):
     'statement : PRINT LPAREN expression RPAREN'
-    print(p[3])
+    p[0] = ("print", p[3])  # En lugar de imprimir de inmediato, lo almacenamos
 
-def p_statement_if(p):
+def p_statement_if_else(p):
     '''statement : IF LPAREN expression RPAREN LBRACE statements RBRACE
                  | IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE'''
-    if p[3]:  
-        p[0] = p[6]  
-    elif len(p) == 11:  
-        p[0] = p[10]  
+    condition_result = bool(p[3])
+    
+    if condition_result:
+        p[0] = p[6]  # Ejecuta el bloque `if`
+    elif len(p) == 11:
+        p[0] = p[10]  # Ejecuta el bloque `else`
+    else:
+        p[0] = None
 
-# Definir conjunto de declaraciones
 def p_statements(p):
     '''statements : statement
                   | statements statement'''
-    pass
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[2]]
 
-# Expresiones lógicas
 def p_expression_logic(p):
-    '''expression : NEGACION expression
+    '''expression : expression IGUALDAD expression
+                  | expression NEGACION expression
                   | expression AND expression
-                  | expression OR expression'''
-    if p[1] == '||': 
-        p[0] = not p[2]
-    elif p[2] == '!!': 
+                  | expression OR expression
+                  | expression MENOR expression
+                  | expression MENORIGUAL expression
+                  | expression MAYOR expression
+                  | expression MAYORIGUAL expression'''
+    if p[2] == '!==':
+        p[0] = (p[1] == p[3])
+    elif p[2] == '==':
+        p[0] = (p[1] != p[3])
+    elif p[2] == 'or':
         p[0] = p[1] and p[3]
-    elif p[2] == '&&':  
+    elif p[2] == 'and':
         p[0] = p[1] or p[3]
+    elif p[2] == '>':
+        p[0] = p[1] < p[3]
+    elif p[2] == '>!=':
+        p[0] = p[1] <= p[3]
+    elif p[2] == '<':
+        p[0] = p[1] > p[3]
+    elif p[2] == '<!=':
+        p[0] = p[1] >= p[3]
 
-# Expresiones matemáticas
 def p_expression_binop(p):
     '''expression : expression PLUS expression
                   | expression MINUS expression
@@ -76,5 +93,4 @@ def p_expression_identifier(p):
 def p_error(p):
     print("Error de sintaxis")
 
-# Construir el parser
 parser = yacc.yacc()
