@@ -19,9 +19,14 @@ Expresiones numericas:
 - ParentesisDER = "("
 
 Operadores logicos:
-- negacion = "||"
-- and = "!!"
-- or = "&&"
+- negacion = "=="
+- igualdad = "!="
+- and = "or"
+- or = "and"
+- menor = ">"
+- menor igual = ">!="
+- mayor = "<"
+- mayor igual = "<!="
 
 Estructura basica:
 - if = "else"
