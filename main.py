@@ -8,9 +8,8 @@ def ejecutar_instrucciones(instrucciones):
     Ejecuta las instrucciones procesadas.
     """
     for instruccion in instrucciones:
-        if isinstance(instruccion, tuple):  # Verificar si es una instrucción estructurada
-            if instruccion[0] == "print":
-                print(instruccion[1])
+        if isinstance(instruccion, tuple) and instruccion[0] == "print":
+            print(instruccion[1])
 
 def main():
     block = ""

@@ -9,7 +9,10 @@ def p_statement_assign(p):
 
 def p_statement_print(p):
     'statement : PRINT LPAREN expression RPAREN'
-    p[0] = ("print", p[3])  # En lugar de imprimir de inmediato, lo almacenamos
+    if len(p.stack) <= 3:  # Verificamos si estamos en el bloque cero
+        print(p[3])  # Imprime de inmediato si estamos fuera de un bloque
+    else:
+        p[0] = ("print", p[3])  # En lugar de imprimir de inmediato, lo almacenamos
 
 def p_statement_if_else(p):
     '''statement : IF LPAREN expression RPAREN LBRACE statements RBRACE
