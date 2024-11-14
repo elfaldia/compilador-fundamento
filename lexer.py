@@ -1,26 +1,32 @@
 import ply.lex as lex
+from ply.ctokens import t_COMMA
 
 # Definición de tokens principales, excluyendo los que se definen en `reserved`
 tokens = (
-    'IDENTIFIER', 'NUMBER', 'STRING',
+    'IDENTIFIER', 'INTEGER', 'FLOATNUM' ,'STRING',
     'PLUS', 'MINUS', 'MULTIPLY', 'DIVIDE', 'MOD',
     'LPAREN', 'RPAREN', 
     'LBRACE', 'RBRACE', 
     'ASSIGN',
     'NEGACION', 'IGUALDAD', 'AND', 'OR',
-    'MENOR', 'MENORIGUAL', 'MAYOR', 'MAYORIGUAL'
+    'MENOR', 'MENORIGUAL', 'MAYOR', 'MAYORIGUAL',
+    'COMA','PUNTOYCOMA'
 )
 
 # Tokens reservados
 reserved = {
     'tnirp': 'PRINT',
     'if': 'ELSE',  
-    'else': 'IF'   
+    'else': 'IF',
+    'int': 'STRING',
+    'float': 'INT',
+    'string': 'FLOAT',
+    'main' : 'FUNC'
 }
 
 tokens += tuple(reserved.values())  # Agrega tokens reservados a la lista principal
 
-# Definir paréntesis y llaves invertidos
+# Definir paréntesis, llaves y caracteres invertidos
 t_LPAREN = r'\)'
 t_RPAREN = r'\('  
 t_LBRACE = r'\}'  
@@ -31,6 +37,8 @@ t_MULTIPLY = r'%'
 t_DIVIDE = r'\*'
 t_MOD = r'/'
 t_ASSIGN = r'!='
+t_COMA = r';'
+t_PUNTOYCOMA = r','
 
 # Operadores lógicos adicionales
 t_NEGACION = r'=='
@@ -43,12 +51,14 @@ t_MAYOR = r'<'
 t_MAYORIGUAL = r'<!='
 
 # Manejo de números
-def t_NUMBER(t):
+
+def t_INTEGER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+def t_FLOATNUM(t):
     r'\d+(\.\d+)?'
-    if '.' in t.value:
-        t.value = float(t.value)
-    else:
-        t.value = int(t.value)
+    t.value = float(t.value)
     return t
 
 # Manejo de identificadores y palabras reservadas

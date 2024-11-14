@@ -2,6 +2,39 @@ import ply.yacc as yacc
 from lexer import tokens
 
 variables = {}
+tokenTipo = {
+        'INTEGER': 'INT',
+        'FLOATNUM': 'FLOAT',
+        'STRING': 'STRING',
+}
+
+def p_tipovariable(p):
+
+    '''tipo : INT
+            | FLOAT
+    '''
+    p[0] = p.slice [1].type
+
+def p_valorvariable(p):
+
+    '''valor : INTEGER
+             | FLOATNUM
+             | STRING
+    '''
+    tipoVar = tokenTipo.get(p.slice[1].type, p.slice[1].type)
+    p[0] = {'tipo': tipoVar, 'valor': p[1]}
+
+def p_funinicio (p):
+    'funINICIO : STRING FUNC bloquecodigo'
+    pass
+
+def p_bloquecodigo(p):
+
+    '''bloquecodigo : LBRACE statements keywords RBRACE
+                    | LBRACE keywords RBRACE
+                    | LBRACE statements RBRACE
+    '''
+    pass
 
 def p_statement_assign(p):
     'statement : IDENTIFIER ASSIGN expression'
@@ -15,16 +48,10 @@ def p_statement_print(p):
         p[0] = ("print", p[3])  # En lugar de imprimir de inmediato, lo almacenamos
 
 def p_statement_if_else(p):
-    '''statement : IF LPAREN expression RPAREN LBRACE statements RBRACE
-                 | IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE'''
-    condition_result = bool(p[3])
-    
-    if condition_result:
-        p[0] = p[6]  # Ejecuta el bloque `if`
-    elif len(p) == 11:
-        p[0] = p[10]  # Ejecuta el bloque `else`
-    else:
-        p[0] = None
+    '''statement : IF LPAREN expression RPAREN bloquecodigo
+                 | IF LPAREN expression RPAREN keyword
+                 | IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo'''
+    pass
 
 def p_statements(p):
     '''statements : statement

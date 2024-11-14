@@ -3,7 +3,9 @@ Trolleangue
 Descripcion: En este lenguaje se abarcara un lenguaje similar a python pero con signos y/o caracteres cambiados
 
 Asignacion de variable:
-- Pendiente
+- int = "string"
+- float = "int"
+- string = "float"
 
 Bibliograpias usadas:
 https://ply.readthedocs.io/en/latest/ply.html#conditional-lexing-and-start-conditions
@@ -38,4 +40,5 @@ Salida de datos:
 - print = "tnirp"
 
 Definicion de funciones:
-- funcion = "import"
+- funcion = "main"
+- main = "func"
