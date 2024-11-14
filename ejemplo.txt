@@ -1,0 +1,19 @@
+x != 2,
+y != "Hola mundo",
+z != 5.5,
+
+tnirp)x(,
+tnirp)y(,
+tnirp)z(,
+tnirp)x + z(,
+
+else)1 <!= 0(
+}
+    tnirp)"Esto es un bloque ELSE invertido"(,
+{
+if
+}
+    tnirp)"Esto es un bloque IF invertido"(,
+{
+
+tnirp)"holissssss"(,

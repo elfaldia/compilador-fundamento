@@ -1,1159 +1,872 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    COMA
+    FLOAT
+    FUNC
+    INT
+    RETURN
+
 Grammar
 
-Rule 0     S' -> statement
-Rule 1     statement -> IDENTIFIER ASSIGN expression
-Rule 2     statement -> PRINT LPAREN expression RPAREN
-Rule 3     statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE
-Rule 4     statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
-Rule 5     statements -> statement
-Rule 6     statements -> statements statement
-Rule 7     expression -> expression IGUALDAD expression
-Rule 8     expression -> expression NEGACION expression
-Rule 9     expression -> expression AND expression
-Rule 10    expression -> expression OR expression
-Rule 11    expression -> expression MENOR expression
-Rule 12    expression -> expression MENORIGUAL expression
-Rule 13    expression -> expression MAYOR expression
-Rule 14    expression -> expression MAYORIGUAL expression
-Rule 15    expression -> expression PLUS expression
-Rule 16    expression -> expression MINUS expression
-Rule 17    expression -> expression MULTIPLY expression
-Rule 18    expression -> expression DIVIDE expression
-Rule 19    expression -> expression MOD expression
-Rule 20    expression -> LPAREN expression RPAREN
-Rule 21    expression -> NUMBER
-Rule 22    expression -> STRING
-Rule 23    expression -> IDENTIFIER
+Rule 0     S' -> program
+Rule 1     program -> statements
+Rule 2     statements -> statement
+Rule 3     statements -> statements statement
+Rule 4     statement -> IDENTIFIER ASSIGN valor PUNTOYCOMA
+Rule 5     statement -> PRINT LPAREN expression RPAREN PUNTOYCOMA
+Rule 6     statement -> IF LPAREN expression RPAREN bloquecodigo
+Rule 7     statement -> IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo
+Rule 8     bloquecodigo -> LBRACE statements RBRACE
+Rule 9     bloquecodigo -> LBRACE RBRACE
+Rule 10    valor -> INTEGER
+Rule 11    valor -> FLOATNUM
+Rule 12    valor -> STRING
+Rule 13    expression -> valor
+Rule 14    expression -> IDENTIFIER
+Rule 15    expression -> expression IGUALDAD expression
+Rule 16    expression -> expression NEGACION expression
+Rule 17    expression -> expression AND expression
+Rule 18    expression -> expression OR expression
+Rule 19    expression -> expression MENOR expression
+Rule 20    expression -> expression MENORIGUAL expression
+Rule 21    expression -> expression MAYOR expression
+Rule 22    expression -> expression MAYORIGUAL expression
+Rule 23    expression -> expression PLUS expression
+Rule 24    expression -> expression MINUS expression
+Rule 25    expression -> expression MULTIPLY expression
+Rule 26    expression -> expression DIVIDE expression
+Rule 27    expression -> expression MOD expression
 
 Terminals, with rules where they appear
 
-AND                  : 9
-ASSIGN               : 1
-DIVIDE               : 18
-ELSE                 : 4
-IDENTIFIER           : 1 23
-IF                   : 3 4
-IGUALDAD             : 7
-LBRACE               : 3 4 4
-LPAREN               : 2 3 4 20
-MAYOR                : 13
-MAYORIGUAL           : 14
-MENOR                : 11
-MENORIGUAL           : 12
-MINUS                : 16
-MOD                  : 19
-MULTIPLY             : 17
-NEGACION             : 8
-NUMBER               : 21
-OR                   : 10
-PLUS                 : 15
-PRINT                : 2
-RBRACE               : 3 4 4
-RPAREN               : 2 3 4 20
-STRING               : 22
+AND                  : 17
+ASSIGN               : 4
+COMA                 : 
+DIVIDE               : 26
+ELSE                 : 7
+FLOAT                : 
+FLOATNUM             : 11
+FUNC                 : 
+IDENTIFIER           : 4 14
+IF                   : 6 7
+IGUALDAD             : 15
+INT                  : 
+INTEGER              : 10
+LBRACE               : 8 9
+LPAREN               : 5 6 7
+MAYOR                : 21
+MAYORIGUAL           : 22
+MENOR                : 19
+MENORIGUAL           : 20
+MINUS                : 24
+MOD                  : 27
+MULTIPLY             : 25
+NEGACION             : 16
+OR                   : 18
+PLUS                 : 23
+PRINT                : 5
+PUNTOYCOMA           : 4 5
+RBRACE               : 8 9
+RETURN               : 
+RPAREN               : 5 6 7
+STRING               : 12
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 2 3 4 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20
-statement            : 5 6 0
-statements           : 3 4 4 6
+bloquecodigo         : 6 7 7
+expression           : 5 6 7 15 15 16 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27
+program              : 0
+statement            : 2 3
+statements           : 1 3 8
+valor                : 4 13
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . statement
-    (1) statement -> . IDENTIFIER ASSIGN expression
-    (2) statement -> . PRINT LPAREN expression RPAREN
-    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
-    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (0) S' -> . program
+    (1) program -> . statements
+    (2) statements -> . statement
+    (3) statements -> . statements statement
+    (4) statement -> . IDENTIFIER ASSIGN valor PUNTOYCOMA
+    (5) statement -> . PRINT LPAREN expression RPAREN PUNTOYCOMA
+    (6) statement -> . IF LPAREN expression RPAREN bloquecodigo
+    (7) statement -> . IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo
 
-    IDENTIFIER      shift and go to state 2
-    PRINT           shift and go to state 3
-    IF              shift and go to state 4
+    IDENTIFIER      shift and go to state 4
+    PRINT           shift and go to state 5
+    IF              shift and go to state 6
 
-    statement                      shift and go to state 1
+    program                        shift and go to state 1
+    statements                     shift and go to state 2
+    statement                      shift and go to state 3
 
 state 1
 
-    (0) S' -> statement .
+    (0) S' -> program .
 
 
 
 state 2
 
-    (1) statement -> IDENTIFIER . ASSIGN expression
+    (1) program -> statements .
+    (3) statements -> statements . statement
+    (4) statement -> . IDENTIFIER ASSIGN valor PUNTOYCOMA
+    (5) statement -> . PRINT LPAREN expression RPAREN PUNTOYCOMA
+    (6) statement -> . IF LPAREN expression RPAREN bloquecodigo
+    (7) statement -> . IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo
 
-    ASSIGN          shift and go to state 5
+    $end            reduce using rule 1 (program -> statements .)
+    IDENTIFIER      shift and go to state 4
+    PRINT           shift and go to state 5
+    IF              shift and go to state 6
 
+    statement                      shift and go to state 7
 
 state 3
 
-    (2) statement -> PRINT . LPAREN expression RPAREN
+    (2) statements -> statement .
 
-    LPAREN          shift and go to state 6
+    IDENTIFIER      reduce using rule 2 (statements -> statement .)
+    PRINT           reduce using rule 2 (statements -> statement .)
+    IF              reduce using rule 2 (statements -> statement .)
+    $end            reduce using rule 2 (statements -> statement .)
+    RBRACE          reduce using rule 2 (statements -> statement .)
 
 
 state 4
 
-    (3) statement -> IF . LPAREN expression RPAREN LBRACE statements RBRACE
-    (4) statement -> IF . LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (4) statement -> IDENTIFIER . ASSIGN valor PUNTOYCOMA
 
-    LPAREN          shift and go to state 7
+    ASSIGN          shift and go to state 8
 
 
 state 5
 
-    (1) statement -> IDENTIFIER ASSIGN . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (5) statement -> PRINT . LPAREN expression RPAREN PUNTOYCOMA
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    LPAREN          shift and go to state 9
 
-    expression                     shift and go to state 9
 
 state 6
 
-    (2) statement -> PRINT LPAREN . expression RPAREN
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (6) statement -> IF . LPAREN expression RPAREN bloquecodigo
+    (7) statement -> IF . LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo
 
     LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
 
-    expression                     shift and go to state 13
 
 state 7
 
-    (3) statement -> IF LPAREN . expression RPAREN LBRACE statements RBRACE
-    (4) statement -> IF LPAREN . expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (3) statements -> statements statement .
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      reduce using rule 3 (statements -> statements statement .)
+    PRINT           reduce using rule 3 (statements -> statements statement .)
+    IF              reduce using rule 3 (statements -> statements statement .)
+    $end            reduce using rule 3 (statements -> statements statement .)
+    RBRACE          reduce using rule 3 (statements -> statements statement .)
 
-    expression                     shift and go to state 14
 
 state 8
 
-    (23) expression -> IDENTIFIER .
+    (4) statement -> IDENTIFIER ASSIGN . valor PUNTOYCOMA
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    IGUALDAD        reduce using rule 23 (expression -> IDENTIFIER .)
-    NEGACION        reduce using rule 23 (expression -> IDENTIFIER .)
-    AND             reduce using rule 23 (expression -> IDENTIFIER .)
-    OR              reduce using rule 23 (expression -> IDENTIFIER .)
-    MENOR           reduce using rule 23 (expression -> IDENTIFIER .)
-    MENORIGUAL      reduce using rule 23 (expression -> IDENTIFIER .)
-    MAYOR           reduce using rule 23 (expression -> IDENTIFIER .)
-    MAYORIGUAL      reduce using rule 23 (expression -> IDENTIFIER .)
-    PLUS            reduce using rule 23 (expression -> IDENTIFIER .)
-    MINUS           reduce using rule 23 (expression -> IDENTIFIER .)
-    MULTIPLY        reduce using rule 23 (expression -> IDENTIFIER .)
-    DIVIDE          reduce using rule 23 (expression -> IDENTIFIER .)
-    MOD             reduce using rule 23 (expression -> IDENTIFIER .)
-    $end            reduce using rule 23 (expression -> IDENTIFIER .)
-    RBRACE          reduce using rule 23 (expression -> IDENTIFIER .)
-    IDENTIFIER      reduce using rule 23 (expression -> IDENTIFIER .)
-    PRINT           reduce using rule 23 (expression -> IDENTIFIER .)
-    IF              reduce using rule 23 (expression -> IDENTIFIER .)
-    RPAREN          reduce using rule 23 (expression -> IDENTIFIER .)
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
+    valor                          shift and go to state 11
 
 state 9
 
-    (1) statement -> IDENTIFIER ASSIGN expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (5) statement -> PRINT LPAREN . expression RPAREN PUNTOYCOMA
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    $end            reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
-    RBRACE          reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
-    IDENTIFIER      reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
-    PRINT           reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
-    IF              reduce using rule 1 (statement -> IDENTIFIER ASSIGN expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
+    expression                     shift and go to state 15
+    valor                          shift and go to state 16
 
 state 10
 
-    (20) expression -> LPAREN . expression RPAREN
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (6) statement -> IF LPAREN . expression RPAREN bloquecodigo
+    (7) statement -> IF LPAREN . expression RPAREN bloquecodigo ELSE bloquecodigo
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 28
+    expression                     shift and go to state 18
+    valor                          shift and go to state 16
 
 state 11
 
-    (21) expression -> NUMBER .
+    (4) statement -> IDENTIFIER ASSIGN valor . PUNTOYCOMA
 
-    IGUALDAD        reduce using rule 21 (expression -> NUMBER .)
-    NEGACION        reduce using rule 21 (expression -> NUMBER .)
-    AND             reduce using rule 21 (expression -> NUMBER .)
-    OR              reduce using rule 21 (expression -> NUMBER .)
-    MENOR           reduce using rule 21 (expression -> NUMBER .)
-    MENORIGUAL      reduce using rule 21 (expression -> NUMBER .)
-    MAYOR           reduce using rule 21 (expression -> NUMBER .)
-    MAYORIGUAL      reduce using rule 21 (expression -> NUMBER .)
-    PLUS            reduce using rule 21 (expression -> NUMBER .)
-    MINUS           reduce using rule 21 (expression -> NUMBER .)
-    MULTIPLY        reduce using rule 21 (expression -> NUMBER .)
-    DIVIDE          reduce using rule 21 (expression -> NUMBER .)
-    MOD             reduce using rule 21 (expression -> NUMBER .)
-    $end            reduce using rule 21 (expression -> NUMBER .)
-    RBRACE          reduce using rule 21 (expression -> NUMBER .)
-    IDENTIFIER      reduce using rule 21 (expression -> NUMBER .)
-    PRINT           reduce using rule 21 (expression -> NUMBER .)
-    IF              reduce using rule 21 (expression -> NUMBER .)
-    RPAREN          reduce using rule 21 (expression -> NUMBER .)
+    PUNTOYCOMA      shift and go to state 19
 
 
 state 12
 
-    (22) expression -> STRING .
+    (10) valor -> INTEGER .
 
-    IGUALDAD        reduce using rule 22 (expression -> STRING .)
-    NEGACION        reduce using rule 22 (expression -> STRING .)
-    AND             reduce using rule 22 (expression -> STRING .)
-    OR              reduce using rule 22 (expression -> STRING .)
-    MENOR           reduce using rule 22 (expression -> STRING .)
-    MENORIGUAL      reduce using rule 22 (expression -> STRING .)
-    MAYOR           reduce using rule 22 (expression -> STRING .)
-    MAYORIGUAL      reduce using rule 22 (expression -> STRING .)
-    PLUS            reduce using rule 22 (expression -> STRING .)
-    MINUS           reduce using rule 22 (expression -> STRING .)
-    MULTIPLY        reduce using rule 22 (expression -> STRING .)
-    DIVIDE          reduce using rule 22 (expression -> STRING .)
-    MOD             reduce using rule 22 (expression -> STRING .)
-    $end            reduce using rule 22 (expression -> STRING .)
-    RBRACE          reduce using rule 22 (expression -> STRING .)
-    IDENTIFIER      reduce using rule 22 (expression -> STRING .)
-    PRINT           reduce using rule 22 (expression -> STRING .)
-    IF              reduce using rule 22 (expression -> STRING .)
-    RPAREN          reduce using rule 22 (expression -> STRING .)
+    PUNTOYCOMA      reduce using rule 10 (valor -> INTEGER .)
+    RPAREN          reduce using rule 10 (valor -> INTEGER .)
+    IGUALDAD        reduce using rule 10 (valor -> INTEGER .)
+    NEGACION        reduce using rule 10 (valor -> INTEGER .)
+    AND             reduce using rule 10 (valor -> INTEGER .)
+    OR              reduce using rule 10 (valor -> INTEGER .)
+    MENOR           reduce using rule 10 (valor -> INTEGER .)
+    MENORIGUAL      reduce using rule 10 (valor -> INTEGER .)
+    MAYOR           reduce using rule 10 (valor -> INTEGER .)
+    MAYORIGUAL      reduce using rule 10 (valor -> INTEGER .)
+    PLUS            reduce using rule 10 (valor -> INTEGER .)
+    MINUS           reduce using rule 10 (valor -> INTEGER .)
+    MULTIPLY        reduce using rule 10 (valor -> INTEGER .)
+    DIVIDE          reduce using rule 10 (valor -> INTEGER .)
+    MOD             reduce using rule 10 (valor -> INTEGER .)
 
 
 state 13
 
-    (2) statement -> PRINT LPAREN expression . RPAREN
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (11) valor -> FLOATNUM .
 
-    RPAREN          shift and go to state 29
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    PUNTOYCOMA      reduce using rule 11 (valor -> FLOATNUM .)
+    RPAREN          reduce using rule 11 (valor -> FLOATNUM .)
+    IGUALDAD        reduce using rule 11 (valor -> FLOATNUM .)
+    NEGACION        reduce using rule 11 (valor -> FLOATNUM .)
+    AND             reduce using rule 11 (valor -> FLOATNUM .)
+    OR              reduce using rule 11 (valor -> FLOATNUM .)
+    MENOR           reduce using rule 11 (valor -> FLOATNUM .)
+    MENORIGUAL      reduce using rule 11 (valor -> FLOATNUM .)
+    MAYOR           reduce using rule 11 (valor -> FLOATNUM .)
+    MAYORIGUAL      reduce using rule 11 (valor -> FLOATNUM .)
+    PLUS            reduce using rule 11 (valor -> FLOATNUM .)
+    MINUS           reduce using rule 11 (valor -> FLOATNUM .)
+    MULTIPLY        reduce using rule 11 (valor -> FLOATNUM .)
+    DIVIDE          reduce using rule 11 (valor -> FLOATNUM .)
+    MOD             reduce using rule 11 (valor -> FLOATNUM .)
 
 
 state 14
 
-    (3) statement -> IF LPAREN expression . RPAREN LBRACE statements RBRACE
-    (4) statement -> IF LPAREN expression . RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (12) valor -> STRING .
 
-    RPAREN          shift and go to state 30
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    PUNTOYCOMA      reduce using rule 12 (valor -> STRING .)
+    RPAREN          reduce using rule 12 (valor -> STRING .)
+    IGUALDAD        reduce using rule 12 (valor -> STRING .)
+    NEGACION        reduce using rule 12 (valor -> STRING .)
+    AND             reduce using rule 12 (valor -> STRING .)
+    OR              reduce using rule 12 (valor -> STRING .)
+    MENOR           reduce using rule 12 (valor -> STRING .)
+    MENORIGUAL      reduce using rule 12 (valor -> STRING .)
+    MAYOR           reduce using rule 12 (valor -> STRING .)
+    MAYORIGUAL      reduce using rule 12 (valor -> STRING .)
+    PLUS            reduce using rule 12 (valor -> STRING .)
+    MINUS           reduce using rule 12 (valor -> STRING .)
+    MULTIPLY        reduce using rule 12 (valor -> STRING .)
+    DIVIDE          reduce using rule 12 (valor -> STRING .)
+    MOD             reduce using rule 12 (valor -> STRING .)
 
 
 state 15
 
-    (7) expression -> expression IGUALDAD . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (5) statement -> PRINT LPAREN expression . RPAREN PUNTOYCOMA
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    RPAREN          shift and go to state 20
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-    expression                     shift and go to state 31
 
 state 16
 
-    (8) expression -> expression NEGACION . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (13) expression -> valor .
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    RPAREN          reduce using rule 13 (expression -> valor .)
+    IGUALDAD        reduce using rule 13 (expression -> valor .)
+    NEGACION        reduce using rule 13 (expression -> valor .)
+    AND             reduce using rule 13 (expression -> valor .)
+    OR              reduce using rule 13 (expression -> valor .)
+    MENOR           reduce using rule 13 (expression -> valor .)
+    MENORIGUAL      reduce using rule 13 (expression -> valor .)
+    MAYOR           reduce using rule 13 (expression -> valor .)
+    MAYORIGUAL      reduce using rule 13 (expression -> valor .)
+    PLUS            reduce using rule 13 (expression -> valor .)
+    MINUS           reduce using rule 13 (expression -> valor .)
+    MULTIPLY        reduce using rule 13 (expression -> valor .)
+    DIVIDE          reduce using rule 13 (expression -> valor .)
+    MOD             reduce using rule 13 (expression -> valor .)
 
-    expression                     shift and go to state 32
 
 state 17
 
-    (9) expression -> expression AND . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (14) expression -> IDENTIFIER .
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    RPAREN          reduce using rule 14 (expression -> IDENTIFIER .)
+    IGUALDAD        reduce using rule 14 (expression -> IDENTIFIER .)
+    NEGACION        reduce using rule 14 (expression -> IDENTIFIER .)
+    AND             reduce using rule 14 (expression -> IDENTIFIER .)
+    OR              reduce using rule 14 (expression -> IDENTIFIER .)
+    MENOR           reduce using rule 14 (expression -> IDENTIFIER .)
+    MENORIGUAL      reduce using rule 14 (expression -> IDENTIFIER .)
+    MAYOR           reduce using rule 14 (expression -> IDENTIFIER .)
+    MAYORIGUAL      reduce using rule 14 (expression -> IDENTIFIER .)
+    PLUS            reduce using rule 14 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 14 (expression -> IDENTIFIER .)
+    MULTIPLY        reduce using rule 14 (expression -> IDENTIFIER .)
+    DIVIDE          reduce using rule 14 (expression -> IDENTIFIER .)
+    MOD             reduce using rule 14 (expression -> IDENTIFIER .)
 
-    expression                     shift and go to state 33
 
 state 18
 
-    (10) expression -> expression OR . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (6) statement -> IF LPAREN expression . RPAREN bloquecodigo
+    (7) statement -> IF LPAREN expression . RPAREN bloquecodigo ELSE bloquecodigo
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    RPAREN          shift and go to state 34
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-    expression                     shift and go to state 34
 
 state 19
 
-    (11) expression -> expression MENOR . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (4) statement -> IDENTIFIER ASSIGN valor PUNTOYCOMA .
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      reduce using rule 4 (statement -> IDENTIFIER ASSIGN valor PUNTOYCOMA .)
+    PRINT           reduce using rule 4 (statement -> IDENTIFIER ASSIGN valor PUNTOYCOMA .)
+    IF              reduce using rule 4 (statement -> IDENTIFIER ASSIGN valor PUNTOYCOMA .)
+    $end            reduce using rule 4 (statement -> IDENTIFIER ASSIGN valor PUNTOYCOMA .)
+    RBRACE          reduce using rule 4 (statement -> IDENTIFIER ASSIGN valor PUNTOYCOMA .)
 
-    expression                     shift and go to state 35
 
 state 20
 
-    (12) expression -> expression MENORIGUAL . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (5) statement -> PRINT LPAREN expression RPAREN . PUNTOYCOMA
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    PUNTOYCOMA      shift and go to state 35
 
-    expression                     shift and go to state 36
 
 state 21
 
-    (13) expression -> expression MAYOR . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (15) expression -> expression IGUALDAD . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 37
+    expression                     shift and go to state 36
+    valor                          shift and go to state 16
 
 state 22
 
-    (14) expression -> expression MAYORIGUAL . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (16) expression -> expression NEGACION . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 38
+    expression                     shift and go to state 37
+    valor                          shift and go to state 16
 
 state 23
 
-    (15) expression -> expression PLUS . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (17) expression -> expression AND . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 39
+    expression                     shift and go to state 38
+    valor                          shift and go to state 16
 
 state 24
 
-    (16) expression -> expression MINUS . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (18) expression -> expression OR . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 40
+    expression                     shift and go to state 39
+    valor                          shift and go to state 16
 
 state 25
 
-    (17) expression -> expression MULTIPLY . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (19) expression -> expression MENOR . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 41
+    expression                     shift and go to state 40
+    valor                          shift and go to state 16
 
 state 26
 
-    (18) expression -> expression DIVIDE . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (20) expression -> expression MENORIGUAL . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 42
+    expression                     shift and go to state 41
+    valor                          shift and go to state 16
 
 state 27
 
-    (19) expression -> expression MOD . expression
-    (7) expression -> . expression IGUALDAD expression
-    (8) expression -> . expression NEGACION expression
-    (9) expression -> . expression AND expression
-    (10) expression -> . expression OR expression
-    (11) expression -> . expression MENOR expression
-    (12) expression -> . expression MENORIGUAL expression
-    (13) expression -> . expression MAYOR expression
-    (14) expression -> . expression MAYORIGUAL expression
-    (15) expression -> . expression PLUS expression
-    (16) expression -> . expression MINUS expression
-    (17) expression -> . expression MULTIPLY expression
-    (18) expression -> . expression DIVIDE expression
-    (19) expression -> . expression MOD expression
-    (20) expression -> . LPAREN expression RPAREN
-    (21) expression -> . NUMBER
-    (22) expression -> . STRING
-    (23) expression -> . IDENTIFIER
+    (21) expression -> expression MAYOR . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LPAREN          shift and go to state 10
-    NUMBER          shift and go to state 11
-    STRING          shift and go to state 12
-    IDENTIFIER      shift and go to state 8
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-    expression                     shift and go to state 43
+    expression                     shift and go to state 42
+    valor                          shift and go to state 16
 
 state 28
 
-    (20) expression -> LPAREN expression . RPAREN
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (22) expression -> expression MAYORIGUAL . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    RPAREN          shift and go to state 44
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
+    expression                     shift and go to state 43
+    valor                          shift and go to state 16
 
 state 29
 
-    (2) statement -> PRINT LPAREN expression RPAREN .
+    (23) expression -> expression PLUS . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    $end            reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
-    RBRACE          reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
-    IDENTIFIER      reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
-    PRINT           reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
-    IF              reduce using rule 2 (statement -> PRINT LPAREN expression RPAREN .)
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
+    expression                     shift and go to state 44
+    valor                          shift and go to state 16
 
 state 30
 
-    (3) statement -> IF LPAREN expression RPAREN . LBRACE statements RBRACE
-    (4) statement -> IF LPAREN expression RPAREN . LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (24) expression -> expression MINUS . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-    LBRACE          shift and go to state 45
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
+    expression                     shift and go to state 45
+    valor                          shift and go to state 16
 
 state 31
 
-    (7) expression -> expression IGUALDAD expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (25) expression -> expression MULTIPLY . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-  ! shift/reduce conflict for IGUALDAD resolved as shift
-  ! shift/reduce conflict for NEGACION resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for MENOR resolved as shift
-  ! shift/reduce conflict for MENORIGUAL resolved as shift
-  ! shift/reduce conflict for MAYOR resolved as shift
-  ! shift/reduce conflict for MAYORIGUAL resolved as shift
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for MULTIPLY resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 7 (expression -> expression IGUALDAD expression .)
-    RBRACE          reduce using rule 7 (expression -> expression IGUALDAD expression .)
-    IDENTIFIER      reduce using rule 7 (expression -> expression IGUALDAD expression .)
-    PRINT           reduce using rule 7 (expression -> expression IGUALDAD expression .)
-    IF              reduce using rule 7 (expression -> expression IGUALDAD expression .)
-    RPAREN          reduce using rule 7 (expression -> expression IGUALDAD expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-  ! IGUALDAD        [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! NEGACION        [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! AND             [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! OR              [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! MENOR           [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! MENORIGUAL      [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! MAYOR           [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! PLUS            [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! MINUS           [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! MULTIPLY        [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! DIVIDE          [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-  ! MOD             [ reduce using rule 7 (expression -> expression IGUALDAD expression .) ]
-
+    expression                     shift and go to state 46
+    valor                          shift and go to state 16
 
 state 32
 
-    (8) expression -> expression NEGACION expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (26) expression -> expression DIVIDE . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-  ! shift/reduce conflict for IGUALDAD resolved as shift
-  ! shift/reduce conflict for NEGACION resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for MENOR resolved as shift
-  ! shift/reduce conflict for MENORIGUAL resolved as shift
-  ! shift/reduce conflict for MAYOR resolved as shift
-  ! shift/reduce conflict for MAYORIGUAL resolved as shift
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for MULTIPLY resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 8 (expression -> expression NEGACION expression .)
-    RBRACE          reduce using rule 8 (expression -> expression NEGACION expression .)
-    IDENTIFIER      reduce using rule 8 (expression -> expression NEGACION expression .)
-    PRINT           reduce using rule 8 (expression -> expression NEGACION expression .)
-    IF              reduce using rule 8 (expression -> expression NEGACION expression .)
-    RPAREN          reduce using rule 8 (expression -> expression NEGACION expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-  ! IGUALDAD        [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! NEGACION        [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! AND             [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! OR              [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! MENOR           [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! MENORIGUAL      [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! MAYOR           [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! PLUS            [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! MINUS           [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! MULTIPLY        [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! DIVIDE          [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-  ! MOD             [ reduce using rule 8 (expression -> expression NEGACION expression .) ]
-
+    expression                     shift and go to state 47
+    valor                          shift and go to state 16
 
 state 33
 
-    (9) expression -> expression AND expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (27) expression -> expression MOD . expression
+    (13) expression -> . valor
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . expression IGUALDAD expression
+    (16) expression -> . expression NEGACION expression
+    (17) expression -> . expression AND expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression MENOR expression
+    (20) expression -> . expression MENORIGUAL expression
+    (21) expression -> . expression MAYOR expression
+    (22) expression -> . expression MAYORIGUAL expression
+    (23) expression -> . expression PLUS expression
+    (24) expression -> . expression MINUS expression
+    (25) expression -> . expression MULTIPLY expression
+    (26) expression -> . expression DIVIDE expression
+    (27) expression -> . expression MOD expression
+    (10) valor -> . INTEGER
+    (11) valor -> . FLOATNUM
+    (12) valor -> . STRING
 
-  ! shift/reduce conflict for IGUALDAD resolved as shift
-  ! shift/reduce conflict for NEGACION resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for MENOR resolved as shift
-  ! shift/reduce conflict for MENORIGUAL resolved as shift
-  ! shift/reduce conflict for MAYOR resolved as shift
-  ! shift/reduce conflict for MAYORIGUAL resolved as shift
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for MULTIPLY resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 9 (expression -> expression AND expression .)
-    RBRACE          reduce using rule 9 (expression -> expression AND expression .)
-    IDENTIFIER      reduce using rule 9 (expression -> expression AND expression .)
-    PRINT           reduce using rule 9 (expression -> expression AND expression .)
-    IF              reduce using rule 9 (expression -> expression AND expression .)
-    RPAREN          reduce using rule 9 (expression -> expression AND expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    IDENTIFIER      shift and go to state 17
+    INTEGER         shift and go to state 12
+    FLOATNUM        shift and go to state 13
+    STRING          shift and go to state 14
 
-  ! IGUALDAD        [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! NEGACION        [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! AND             [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! OR              [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! MENOR           [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! MENORIGUAL      [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! MAYOR           [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! PLUS            [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! MINUS           [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! MULTIPLY        [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! DIVIDE          [ reduce using rule 9 (expression -> expression AND expression .) ]
-  ! MOD             [ reduce using rule 9 (expression -> expression AND expression .) ]
-
+    expression                     shift and go to state 48
+    valor                          shift and go to state 16
 
 state 34
 
-    (10) expression -> expression OR expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (6) statement -> IF LPAREN expression RPAREN . bloquecodigo
+    (7) statement -> IF LPAREN expression RPAREN . bloquecodigo ELSE bloquecodigo
+    (8) bloquecodigo -> . LBRACE statements RBRACE
+    (9) bloquecodigo -> . LBRACE RBRACE
 
-  ! shift/reduce conflict for IGUALDAD resolved as shift
-  ! shift/reduce conflict for NEGACION resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for MENOR resolved as shift
-  ! shift/reduce conflict for MENORIGUAL resolved as shift
-  ! shift/reduce conflict for MAYOR resolved as shift
-  ! shift/reduce conflict for MAYORIGUAL resolved as shift
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for MULTIPLY resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 10 (expression -> expression OR expression .)
-    RBRACE          reduce using rule 10 (expression -> expression OR expression .)
-    IDENTIFIER      reduce using rule 10 (expression -> expression OR expression .)
-    PRINT           reduce using rule 10 (expression -> expression OR expression .)
-    IF              reduce using rule 10 (expression -> expression OR expression .)
-    RPAREN          reduce using rule 10 (expression -> expression OR expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    LBRACE          shift and go to state 50
 
-  ! IGUALDAD        [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! NEGACION        [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! AND             [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! OR              [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! MENOR           [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! MENORIGUAL      [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! MAYOR           [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! PLUS            [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! MINUS           [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! MULTIPLY        [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! DIVIDE          [ reduce using rule 10 (expression -> expression OR expression .) ]
-  ! MOD             [ reduce using rule 10 (expression -> expression OR expression .) ]
-
+    bloquecodigo                   shift and go to state 49
 
 state 35
 
-    (11) expression -> expression MENOR expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (5) statement -> PRINT LPAREN expression RPAREN PUNTOYCOMA .
 
-  ! shift/reduce conflict for IGUALDAD resolved as shift
-  ! shift/reduce conflict for NEGACION resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for MENOR resolved as shift
-  ! shift/reduce conflict for MENORIGUAL resolved as shift
-  ! shift/reduce conflict for MAYOR resolved as shift
-  ! shift/reduce conflict for MAYORIGUAL resolved as shift
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for MULTIPLY resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 11 (expression -> expression MENOR expression .)
-    RBRACE          reduce using rule 11 (expression -> expression MENOR expression .)
-    IDENTIFIER      reduce using rule 11 (expression -> expression MENOR expression .)
-    PRINT           reduce using rule 11 (expression -> expression MENOR expression .)
-    IF              reduce using rule 11 (expression -> expression MENOR expression .)
-    RPAREN          reduce using rule 11 (expression -> expression MENOR expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
-
-  ! IGUALDAD        [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! NEGACION        [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! AND             [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! OR              [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! MENOR           [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! MENORIGUAL      [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! MAYOR           [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! PLUS            [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! MINUS           [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! MULTIPLY        [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! DIVIDE          [ reduce using rule 11 (expression -> expression MENOR expression .) ]
-  ! MOD             [ reduce using rule 11 (expression -> expression MENOR expression .) ]
+    IDENTIFIER      reduce using rule 5 (statement -> PRINT LPAREN expression RPAREN PUNTOYCOMA .)
+    PRINT           reduce using rule 5 (statement -> PRINT LPAREN expression RPAREN PUNTOYCOMA .)
+    IF              reduce using rule 5 (statement -> PRINT LPAREN expression RPAREN PUNTOYCOMA .)
+    $end            reduce using rule 5 (statement -> PRINT LPAREN expression RPAREN PUNTOYCOMA .)
+    RBRACE          reduce using rule 5 (statement -> PRINT LPAREN expression RPAREN PUNTOYCOMA .)
 
 
 state 36
 
-    (12) expression -> expression MENORIGUAL expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (15) expression -> expression IGUALDAD expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1168,57 +881,52 @@ state 36
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 12 (expression -> expression MENORIGUAL expression .)
-    RBRACE          reduce using rule 12 (expression -> expression MENORIGUAL expression .)
-    IDENTIFIER      reduce using rule 12 (expression -> expression MENORIGUAL expression .)
-    PRINT           reduce using rule 12 (expression -> expression MENORIGUAL expression .)
-    IF              reduce using rule 12 (expression -> expression MENORIGUAL expression .)
-    RPAREN          reduce using rule 12 (expression -> expression MENORIGUAL expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 15 (expression -> expression IGUALDAD expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! NEGACION        [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! AND             [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! OR              [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! MENOR           [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! MENORIGUAL      [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! MAYOR           [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! PLUS            [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! MINUS           [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! MULTIPLY        [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! DIVIDE          [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
-  ! MOD             [ reduce using rule 12 (expression -> expression MENORIGUAL expression .) ]
+  ! IGUALDAD        [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! NEGACION        [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! AND             [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! OR              [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! MENOR           [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! MENORIGUAL      [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! MAYOR           [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! PLUS            [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! MINUS           [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! MULTIPLY        [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! DIVIDE          [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
+  ! MOD             [ reduce using rule 15 (expression -> expression IGUALDAD expression .) ]
 
 
 state 37
 
-    (13) expression -> expression MAYOR expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (16) expression -> expression NEGACION expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1233,57 +941,52 @@ state 37
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 13 (expression -> expression MAYOR expression .)
-    RBRACE          reduce using rule 13 (expression -> expression MAYOR expression .)
-    IDENTIFIER      reduce using rule 13 (expression -> expression MAYOR expression .)
-    PRINT           reduce using rule 13 (expression -> expression MAYOR expression .)
-    IF              reduce using rule 13 (expression -> expression MAYOR expression .)
-    RPAREN          reduce using rule 13 (expression -> expression MAYOR expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 16 (expression -> expression NEGACION expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! NEGACION        [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! AND             [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! OR              [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! MENOR           [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! MENORIGUAL      [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! MAYOR           [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! PLUS            [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! MINUS           [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! MULTIPLY        [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! DIVIDE          [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
-  ! MOD             [ reduce using rule 13 (expression -> expression MAYOR expression .) ]
+  ! IGUALDAD        [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! NEGACION        [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! AND             [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! OR              [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! MENOR           [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! MENORIGUAL      [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! MAYOR           [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! PLUS            [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! MINUS           [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! MULTIPLY        [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! DIVIDE          [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
+  ! MOD             [ reduce using rule 16 (expression -> expression NEGACION expression .) ]
 
 
 state 38
 
-    (14) expression -> expression MAYORIGUAL expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (17) expression -> expression AND expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1298,57 +1001,52 @@ state 38
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 14 (expression -> expression MAYORIGUAL expression .)
-    RBRACE          reduce using rule 14 (expression -> expression MAYORIGUAL expression .)
-    IDENTIFIER      reduce using rule 14 (expression -> expression MAYORIGUAL expression .)
-    PRINT           reduce using rule 14 (expression -> expression MAYORIGUAL expression .)
-    IF              reduce using rule 14 (expression -> expression MAYORIGUAL expression .)
-    RPAREN          reduce using rule 14 (expression -> expression MAYORIGUAL expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 17 (expression -> expression AND expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! NEGACION        [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! AND             [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! OR              [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! MENOR           [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! MENORIGUAL      [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! MAYOR           [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! PLUS            [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! MINUS           [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! MULTIPLY        [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! DIVIDE          [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
-  ! MOD             [ reduce using rule 14 (expression -> expression MAYORIGUAL expression .) ]
+  ! IGUALDAD        [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! NEGACION        [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! AND             [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! OR              [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! MENOR           [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! MENORIGUAL      [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! MAYOR           [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! PLUS            [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! MINUS           [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! MULTIPLY        [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! DIVIDE          [ reduce using rule 17 (expression -> expression AND expression .) ]
+  ! MOD             [ reduce using rule 17 (expression -> expression AND expression .) ]
 
 
 state 39
 
-    (15) expression -> expression PLUS expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (18) expression -> expression OR expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1363,57 +1061,52 @@ state 39
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 15 (expression -> expression PLUS expression .)
-    RBRACE          reduce using rule 15 (expression -> expression PLUS expression .)
-    IDENTIFIER      reduce using rule 15 (expression -> expression PLUS expression .)
-    PRINT           reduce using rule 15 (expression -> expression PLUS expression .)
-    IF              reduce using rule 15 (expression -> expression PLUS expression .)
-    RPAREN          reduce using rule 15 (expression -> expression PLUS expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 18 (expression -> expression OR expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! NEGACION        [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! AND             [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! OR              [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! MENOR           [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! MENORIGUAL      [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! MAYOR           [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! PLUS            [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! MINUS           [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! MULTIPLY        [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! DIVIDE          [ reduce using rule 15 (expression -> expression PLUS expression .) ]
-  ! MOD             [ reduce using rule 15 (expression -> expression PLUS expression .) ]
+  ! IGUALDAD        [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! NEGACION        [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! AND             [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! OR              [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! MENOR           [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! MENORIGUAL      [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! MAYOR           [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! PLUS            [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! MINUS           [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! MULTIPLY        [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! DIVIDE          [ reduce using rule 18 (expression -> expression OR expression .) ]
+  ! MOD             [ reduce using rule 18 (expression -> expression OR expression .) ]
 
 
 state 40
 
-    (16) expression -> expression MINUS expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (19) expression -> expression MENOR expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1428,57 +1121,52 @@ state 40
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 16 (expression -> expression MINUS expression .)
-    RBRACE          reduce using rule 16 (expression -> expression MINUS expression .)
-    IDENTIFIER      reduce using rule 16 (expression -> expression MINUS expression .)
-    PRINT           reduce using rule 16 (expression -> expression MINUS expression .)
-    IF              reduce using rule 16 (expression -> expression MINUS expression .)
-    RPAREN          reduce using rule 16 (expression -> expression MINUS expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 19 (expression -> expression MENOR expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! NEGACION        [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! AND             [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! OR              [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! MENOR           [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! MENORIGUAL      [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! MAYOR           [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! PLUS            [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! MINUS           [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! MULTIPLY        [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! DIVIDE          [ reduce using rule 16 (expression -> expression MINUS expression .) ]
-  ! MOD             [ reduce using rule 16 (expression -> expression MINUS expression .) ]
+  ! IGUALDAD        [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! NEGACION        [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! AND             [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! OR              [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! MENOR           [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! MENORIGUAL      [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! MAYOR           [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! PLUS            [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! MINUS           [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! MULTIPLY        [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! DIVIDE          [ reduce using rule 19 (expression -> expression MENOR expression .) ]
+  ! MOD             [ reduce using rule 19 (expression -> expression MENOR expression .) ]
 
 
 state 41
 
-    (17) expression -> expression MULTIPLY expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (20) expression -> expression MENORIGUAL expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1493,57 +1181,52 @@ state 41
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 17 (expression -> expression MULTIPLY expression .)
-    RBRACE          reduce using rule 17 (expression -> expression MULTIPLY expression .)
-    IDENTIFIER      reduce using rule 17 (expression -> expression MULTIPLY expression .)
-    PRINT           reduce using rule 17 (expression -> expression MULTIPLY expression .)
-    IF              reduce using rule 17 (expression -> expression MULTIPLY expression .)
-    RPAREN          reduce using rule 17 (expression -> expression MULTIPLY expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 20 (expression -> expression MENORIGUAL expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! NEGACION        [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! AND             [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! OR              [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! MENOR           [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! MENORIGUAL      [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! MAYOR           [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! PLUS            [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! MINUS           [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! MULTIPLY        [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! DIVIDE          [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
-  ! MOD             [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
+  ! IGUALDAD        [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! NEGACION        [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! AND             [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! OR              [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! MENOR           [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! MENORIGUAL      [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! MAYOR           [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! PLUS            [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! MINUS           [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! MULTIPLY        [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! DIVIDE          [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
+  ! MOD             [ reduce using rule 20 (expression -> expression MENORIGUAL expression .) ]
 
 
 state 42
 
-    (18) expression -> expression DIVIDE expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (21) expression -> expression MAYOR expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1558,57 +1241,52 @@ state 42
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 18 (expression -> expression DIVIDE expression .)
-    RBRACE          reduce using rule 18 (expression -> expression DIVIDE expression .)
-    IDENTIFIER      reduce using rule 18 (expression -> expression DIVIDE expression .)
-    PRINT           reduce using rule 18 (expression -> expression DIVIDE expression .)
-    IF              reduce using rule 18 (expression -> expression DIVIDE expression .)
-    RPAREN          reduce using rule 18 (expression -> expression DIVIDE expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 21 (expression -> expression MAYOR expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! NEGACION        [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! AND             [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! OR              [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! MENOR           [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! MENORIGUAL      [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! MAYOR           [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! PLUS            [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! MINUS           [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! MULTIPLY        [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! DIVIDE          [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
-  ! MOD             [ reduce using rule 18 (expression -> expression DIVIDE expression .) ]
+  ! IGUALDAD        [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! NEGACION        [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! AND             [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! OR              [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! MENOR           [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! MENORIGUAL      [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! MAYOR           [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! PLUS            [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! MINUS           [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! MULTIPLY        [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! DIVIDE          [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
+  ! MOD             [ reduce using rule 21 (expression -> expression MAYOR expression .) ]
 
 
 state 43
 
-    (19) expression -> expression MOD expression .
-    (7) expression -> expression . IGUALDAD expression
-    (8) expression -> expression . NEGACION expression
-    (9) expression -> expression . AND expression
-    (10) expression -> expression . OR expression
-    (11) expression -> expression . MENOR expression
-    (12) expression -> expression . MENORIGUAL expression
-    (13) expression -> expression . MAYOR expression
-    (14) expression -> expression . MAYORIGUAL expression
-    (15) expression -> expression . PLUS expression
-    (16) expression -> expression . MINUS expression
-    (17) expression -> expression . MULTIPLY expression
-    (18) expression -> expression . DIVIDE expression
-    (19) expression -> expression . MOD expression
+    (22) expression -> expression MAYORIGUAL expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
   ! shift/reduce conflict for IGUALDAD resolved as shift
   ! shift/reduce conflict for NEGACION resolved as shift
@@ -1623,252 +1301,431 @@ state 43
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MOD resolved as shift
-    $end            reduce using rule 19 (expression -> expression MOD expression .)
-    RBRACE          reduce using rule 19 (expression -> expression MOD expression .)
-    IDENTIFIER      reduce using rule 19 (expression -> expression MOD expression .)
-    PRINT           reduce using rule 19 (expression -> expression MOD expression .)
-    IF              reduce using rule 19 (expression -> expression MOD expression .)
-    RPAREN          reduce using rule 19 (expression -> expression MOD expression .)
-    IGUALDAD        shift and go to state 15
-    NEGACION        shift and go to state 16
-    AND             shift and go to state 17
-    OR              shift and go to state 18
-    MENOR           shift and go to state 19
-    MENORIGUAL      shift and go to state 20
-    MAYOR           shift and go to state 21
-    MAYORIGUAL      shift and go to state 22
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-    MULTIPLY        shift and go to state 25
-    DIVIDE          shift and go to state 26
-    MOD             shift and go to state 27
+    RPAREN          reduce using rule 22 (expression -> expression MAYORIGUAL expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-  ! IGUALDAD        [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! NEGACION        [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! AND             [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! OR              [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! MENOR           [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! MENORIGUAL      [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! MAYOR           [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! MAYORIGUAL      [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! PLUS            [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! MINUS           [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! MULTIPLY        [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! DIVIDE          [ reduce using rule 19 (expression -> expression MOD expression .) ]
-  ! MOD             [ reduce using rule 19 (expression -> expression MOD expression .) ]
+  ! IGUALDAD        [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! NEGACION        [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! AND             [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! OR              [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! MENOR           [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! MENORIGUAL      [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! MAYOR           [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! PLUS            [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! MINUS           [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! MULTIPLY        [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! DIVIDE          [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
+  ! MOD             [ reduce using rule 22 (expression -> expression MAYORIGUAL expression .) ]
 
 
 state 44
 
-    (20) expression -> LPAREN expression RPAREN .
+    (23) expression -> expression PLUS expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
-    IGUALDAD        reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    NEGACION        reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    AND             reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    OR              reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    MENOR           reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    MENORIGUAL      reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    MAYOR           reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    MAYORIGUAL      reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    PLUS            reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    MULTIPLY        reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    MOD             reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    $end            reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    RBRACE          reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    IDENTIFIER      reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    PRINT           reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    IF              reduce using rule 20 (expression -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 20 (expression -> LPAREN expression RPAREN .)
+  ! shift/reduce conflict for IGUALDAD resolved as shift
+  ! shift/reduce conflict for NEGACION resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MENORIGUAL resolved as shift
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MAYORIGUAL resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    RPAREN          reduce using rule 23 (expression -> expression PLUS expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
+
+  ! IGUALDAD        [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! NEGACION        [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! AND             [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! OR              [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! MENOR           [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! MENORIGUAL      [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! MAYOR           [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! MULTIPLY        [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 23 (expression -> expression PLUS expression .) ]
+  ! MOD             [ reduce using rule 23 (expression -> expression PLUS expression .) ]
 
 
 state 45
 
-    (3) statement -> IF LPAREN expression RPAREN LBRACE . statements RBRACE
-    (4) statement -> IF LPAREN expression RPAREN LBRACE . statements RBRACE ELSE LBRACE statements RBRACE
-    (5) statements -> . statement
-    (6) statements -> . statements statement
-    (1) statement -> . IDENTIFIER ASSIGN expression
-    (2) statement -> . PRINT LPAREN expression RPAREN
-    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
-    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (24) expression -> expression MINUS expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
-    IDENTIFIER      shift and go to state 2
-    PRINT           shift and go to state 3
-    IF              shift and go to state 4
+  ! shift/reduce conflict for IGUALDAD resolved as shift
+  ! shift/reduce conflict for NEGACION resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MENORIGUAL resolved as shift
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MAYORIGUAL resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    RPAREN          reduce using rule 24 (expression -> expression MINUS expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-    statements                     shift and go to state 46
-    statement                      shift and go to state 47
+  ! IGUALDAD        [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! NEGACION        [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! AND             [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! OR              [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! MENOR           [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! MENORIGUAL      [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! MAYOR           [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! MULTIPLY        [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+  ! MOD             [ reduce using rule 24 (expression -> expression MINUS expression .) ]
+
 
 state 46
 
-    (3) statement -> IF LPAREN expression RPAREN LBRACE statements . RBRACE
-    (4) statement -> IF LPAREN expression RPAREN LBRACE statements . RBRACE ELSE LBRACE statements RBRACE
-    (6) statements -> statements . statement
-    (1) statement -> . IDENTIFIER ASSIGN expression
-    (2) statement -> . PRINT LPAREN expression RPAREN
-    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
-    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (25) expression -> expression MULTIPLY expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
-    RBRACE          shift and go to state 48
-    IDENTIFIER      shift and go to state 2
-    PRINT           shift and go to state 3
-    IF              shift and go to state 4
+  ! shift/reduce conflict for IGUALDAD resolved as shift
+  ! shift/reduce conflict for NEGACION resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MENORIGUAL resolved as shift
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MAYORIGUAL resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    RPAREN          reduce using rule 25 (expression -> expression MULTIPLY expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
 
-    statement                      shift and go to state 49
+  ! IGUALDAD        [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! NEGACION        [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! AND             [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! OR              [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! MENOR           [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! MENORIGUAL      [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! MAYOR           [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! PLUS            [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! MINUS           [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! MULTIPLY        [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! DIVIDE          [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+  ! MOD             [ reduce using rule 25 (expression -> expression MULTIPLY expression .) ]
+
 
 state 47
 
-    (5) statements -> statement .
+    (26) expression -> expression DIVIDE expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
-    RBRACE          reduce using rule 5 (statements -> statement .)
-    IDENTIFIER      reduce using rule 5 (statements -> statement .)
-    PRINT           reduce using rule 5 (statements -> statement .)
-    IF              reduce using rule 5 (statements -> statement .)
+  ! shift/reduce conflict for IGUALDAD resolved as shift
+  ! shift/reduce conflict for NEGACION resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MENORIGUAL resolved as shift
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MAYORIGUAL resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    RPAREN          reduce using rule 26 (expression -> expression DIVIDE expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
+
+  ! IGUALDAD        [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! NEGACION        [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! AND             [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! OR              [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! MENOR           [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! MENORIGUAL      [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! MAYOR           [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! PLUS            [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! MINUS           [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! MULTIPLY        [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! DIVIDE          [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
+  ! MOD             [ reduce using rule 26 (expression -> expression DIVIDE expression .) ]
 
 
 state 48
 
-    (3) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .
-    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE . ELSE LBRACE statements RBRACE
+    (27) expression -> expression MOD expression .
+    (15) expression -> expression . IGUALDAD expression
+    (16) expression -> expression . NEGACION expression
+    (17) expression -> expression . AND expression
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . MENOR expression
+    (20) expression -> expression . MENORIGUAL expression
+    (21) expression -> expression . MAYOR expression
+    (22) expression -> expression . MAYORIGUAL expression
+    (23) expression -> expression . PLUS expression
+    (24) expression -> expression . MINUS expression
+    (25) expression -> expression . MULTIPLY expression
+    (26) expression -> expression . DIVIDE expression
+    (27) expression -> expression . MOD expression
 
-    $end            reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
-    RBRACE          reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
-    IDENTIFIER      reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
-    PRINT           reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
-    IF              reduce using rule 3 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE .)
-    ELSE            shift and go to state 50
+  ! shift/reduce conflict for IGUALDAD resolved as shift
+  ! shift/reduce conflict for NEGACION resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MENORIGUAL resolved as shift
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MAYORIGUAL resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    RPAREN          reduce using rule 27 (expression -> expression MOD expression .)
+    IGUALDAD        shift and go to state 21
+    NEGACION        shift and go to state 22
+    AND             shift and go to state 23
+    OR              shift and go to state 24
+    MENOR           shift and go to state 25
+    MENORIGUAL      shift and go to state 26
+    MAYOR           shift and go to state 27
+    MAYORIGUAL      shift and go to state 28
+    PLUS            shift and go to state 29
+    MINUS           shift and go to state 30
+    MULTIPLY        shift and go to state 31
+    DIVIDE          shift and go to state 32
+    MOD             shift and go to state 33
+
+  ! IGUALDAD        [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! NEGACION        [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! AND             [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! OR              [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! MENOR           [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! MENORIGUAL      [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! MAYOR           [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! MAYORIGUAL      [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! PLUS            [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! MINUS           [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! MULTIPLY        [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! DIVIDE          [ reduce using rule 27 (expression -> expression MOD expression .) ]
+  ! MOD             [ reduce using rule 27 (expression -> expression MOD expression .) ]
 
 
 state 49
 
-    (6) statements -> statements statement .
+    (6) statement -> IF LPAREN expression RPAREN bloquecodigo .
+    (7) statement -> IF LPAREN expression RPAREN bloquecodigo . ELSE bloquecodigo
 
-    RBRACE          reduce using rule 6 (statements -> statements statement .)
-    IDENTIFIER      reduce using rule 6 (statements -> statements statement .)
-    PRINT           reduce using rule 6 (statements -> statements statement .)
-    IF              reduce using rule 6 (statements -> statements statement .)
+    IDENTIFIER      reduce using rule 6 (statement -> IF LPAREN expression RPAREN bloquecodigo .)
+    PRINT           reduce using rule 6 (statement -> IF LPAREN expression RPAREN bloquecodigo .)
+    IF              reduce using rule 6 (statement -> IF LPAREN expression RPAREN bloquecodigo .)
+    $end            reduce using rule 6 (statement -> IF LPAREN expression RPAREN bloquecodigo .)
+    RBRACE          reduce using rule 6 (statement -> IF LPAREN expression RPAREN bloquecodigo .)
+    ELSE            shift and go to state 51
 
 
 state 50
 
-    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE . LBRACE statements RBRACE
+    (8) bloquecodigo -> LBRACE . statements RBRACE
+    (9) bloquecodigo -> LBRACE . RBRACE
+    (2) statements -> . statement
+    (3) statements -> . statements statement
+    (4) statement -> . IDENTIFIER ASSIGN valor PUNTOYCOMA
+    (5) statement -> . PRINT LPAREN expression RPAREN PUNTOYCOMA
+    (6) statement -> . IF LPAREN expression RPAREN bloquecodigo
+    (7) statement -> . IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo
 
-    LBRACE          shift and go to state 51
+    RBRACE          shift and go to state 53
+    IDENTIFIER      shift and go to state 4
+    PRINT           shift and go to state 5
+    IF              shift and go to state 6
 
+    statements                     shift and go to state 52
+    statement                      shift and go to state 3
 
 state 51
 
-    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE . statements RBRACE
-    (5) statements -> . statement
-    (6) statements -> . statements statement
-    (1) statement -> . IDENTIFIER ASSIGN expression
-    (2) statement -> . PRINT LPAREN expression RPAREN
-    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
-    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (7) statement -> IF LPAREN expression RPAREN bloquecodigo ELSE . bloquecodigo
+    (8) bloquecodigo -> . LBRACE statements RBRACE
+    (9) bloquecodigo -> . LBRACE RBRACE
 
-    IDENTIFIER      shift and go to state 2
-    PRINT           shift and go to state 3
-    IF              shift and go to state 4
+    LBRACE          shift and go to state 50
 
-    statements                     shift and go to state 52
-    statement                      shift and go to state 47
+    bloquecodigo                   shift and go to state 54
 
 state 52
 
-    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements . RBRACE
-    (6) statements -> statements . statement
-    (1) statement -> . IDENTIFIER ASSIGN expression
-    (2) statement -> . PRINT LPAREN expression RPAREN
-    (3) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE
-    (4) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (8) bloquecodigo -> LBRACE statements . RBRACE
+    (3) statements -> statements . statement
+    (4) statement -> . IDENTIFIER ASSIGN valor PUNTOYCOMA
+    (5) statement -> . PRINT LPAREN expression RPAREN PUNTOYCOMA
+    (6) statement -> . IF LPAREN expression RPAREN bloquecodigo
+    (7) statement -> . IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo
 
-    RBRACE          shift and go to state 53
-    IDENTIFIER      shift and go to state 2
-    PRINT           shift and go to state 3
-    IF              shift and go to state 4
+    RBRACE          shift and go to state 55
+    IDENTIFIER      shift and go to state 4
+    PRINT           shift and go to state 5
+    IF              shift and go to state 6
 
-    statement                      shift and go to state 49
+    statement                      shift and go to state 7
 
 state 53
 
-    (4) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .
+    (9) bloquecodigo -> LBRACE RBRACE .
 
-    $end            reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
-    RBRACE          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
-    IDENTIFIER      reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
-    PRINT           reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
-    IF              reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    ELSE            reduce using rule 9 (bloquecodigo -> LBRACE RBRACE .)
+    IDENTIFIER      reduce using rule 9 (bloquecodigo -> LBRACE RBRACE .)
+    PRINT           reduce using rule 9 (bloquecodigo -> LBRACE RBRACE .)
+    IF              reduce using rule 9 (bloquecodigo -> LBRACE RBRACE .)
+    $end            reduce using rule 9 (bloquecodigo -> LBRACE RBRACE .)
+    RBRACE          reduce using rule 9 (bloquecodigo -> LBRACE RBRACE .)
+
+
+state 54
+
+    (7) statement -> IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo .
+
+    IDENTIFIER      reduce using rule 7 (statement -> IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo .)
+    PRINT           reduce using rule 7 (statement -> IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo .)
+    IF              reduce using rule 7 (statement -> IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo .)
+    $end            reduce using rule 7 (statement -> IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo .)
+    RBRACE          reduce using rule 7 (statement -> IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo .)
+
+
+state 55
+
+    (8) bloquecodigo -> LBRACE statements RBRACE .
+
+    ELSE            reduce using rule 8 (bloquecodigo -> LBRACE statements RBRACE .)
+    IDENTIFIER      reduce using rule 8 (bloquecodigo -> LBRACE statements RBRACE .)
+    PRINT           reduce using rule 8 (bloquecodigo -> LBRACE statements RBRACE .)
+    IF              reduce using rule 8 (bloquecodigo -> LBRACE statements RBRACE .)
+    $end            reduce using rule 8 (bloquecodigo -> LBRACE statements RBRACE .)
+    RBRACE          reduce using rule 8 (bloquecodigo -> LBRACE statements RBRACE .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for IGUALDAD in state 31 resolved as shift
-WARNING: shift/reduce conflict for NEGACION in state 31 resolved as shift
-WARNING: shift/reduce conflict for AND in state 31 resolved as shift
-WARNING: shift/reduce conflict for OR in state 31 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 31 resolved as shift
-WARNING: shift/reduce conflict for MENORIGUAL in state 31 resolved as shift
-WARNING: shift/reduce conflict for MAYOR in state 31 resolved as shift
-WARNING: shift/reduce conflict for MAYORIGUAL in state 31 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 31 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 31 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 31 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 31 resolved as shift
-WARNING: shift/reduce conflict for MOD in state 31 resolved as shift
-WARNING: shift/reduce conflict for IGUALDAD in state 32 resolved as shift
-WARNING: shift/reduce conflict for NEGACION in state 32 resolved as shift
-WARNING: shift/reduce conflict for AND in state 32 resolved as shift
-WARNING: shift/reduce conflict for OR in state 32 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 32 resolved as shift
-WARNING: shift/reduce conflict for MENORIGUAL in state 32 resolved as shift
-WARNING: shift/reduce conflict for MAYOR in state 32 resolved as shift
-WARNING: shift/reduce conflict for MAYORIGUAL in state 32 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 32 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 32 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 32 resolved as shift
-WARNING: shift/reduce conflict for MOD in state 32 resolved as shift
-WARNING: shift/reduce conflict for IGUALDAD in state 33 resolved as shift
-WARNING: shift/reduce conflict for NEGACION in state 33 resolved as shift
-WARNING: shift/reduce conflict for AND in state 33 resolved as shift
-WARNING: shift/reduce conflict for OR in state 33 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 33 resolved as shift
-WARNING: shift/reduce conflict for MENORIGUAL in state 33 resolved as shift
-WARNING: shift/reduce conflict for MAYOR in state 33 resolved as shift
-WARNING: shift/reduce conflict for MAYORIGUAL in state 33 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 33 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 33 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 33 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 33 resolved as shift
-WARNING: shift/reduce conflict for MOD in state 33 resolved as shift
-WARNING: shift/reduce conflict for IGUALDAD in state 34 resolved as shift
-WARNING: shift/reduce conflict for NEGACION in state 34 resolved as shift
-WARNING: shift/reduce conflict for AND in state 34 resolved as shift
-WARNING: shift/reduce conflict for OR in state 34 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 34 resolved as shift
-WARNING: shift/reduce conflict for MENORIGUAL in state 34 resolved as shift
-WARNING: shift/reduce conflict for MAYOR in state 34 resolved as shift
-WARNING: shift/reduce conflict for MAYORIGUAL in state 34 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 34 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 34 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 34 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 34 resolved as shift
-WARNING: shift/reduce conflict for MOD in state 34 resolved as shift
-WARNING: shift/reduce conflict for IGUALDAD in state 35 resolved as shift
-WARNING: shift/reduce conflict for NEGACION in state 35 resolved as shift
-WARNING: shift/reduce conflict for AND in state 35 resolved as shift
-WARNING: shift/reduce conflict for OR in state 35 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 35 resolved as shift
-WARNING: shift/reduce conflict for MENORIGUAL in state 35 resolved as shift
-WARNING: shift/reduce conflict for MAYOR in state 35 resolved as shift
-WARNING: shift/reduce conflict for MAYORIGUAL in state 35 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 35 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 35 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 35 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 35 resolved as shift
-WARNING: shift/reduce conflict for MOD in state 35 resolved as shift
 WARNING: shift/reduce conflict for IGUALDAD in state 36 resolved as shift
 WARNING: shift/reduce conflict for NEGACION in state 36 resolved as shift
 WARNING: shift/reduce conflict for AND in state 36 resolved as shift
@@ -1973,3 +1830,68 @@ WARNING: shift/reduce conflict for MINUS in state 43 resolved as shift
 WARNING: shift/reduce conflict for MULTIPLY in state 43 resolved as shift
 WARNING: shift/reduce conflict for DIVIDE in state 43 resolved as shift
 WARNING: shift/reduce conflict for MOD in state 43 resolved as shift
+WARNING: shift/reduce conflict for IGUALDAD in state 44 resolved as shift
+WARNING: shift/reduce conflict for NEGACION in state 44 resolved as shift
+WARNING: shift/reduce conflict for AND in state 44 resolved as shift
+WARNING: shift/reduce conflict for OR in state 44 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 44 resolved as shift
+WARNING: shift/reduce conflict for MENORIGUAL in state 44 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 44 resolved as shift
+WARNING: shift/reduce conflict for MAYORIGUAL in state 44 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 44 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 44 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 44 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 44 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 44 resolved as shift
+WARNING: shift/reduce conflict for IGUALDAD in state 45 resolved as shift
+WARNING: shift/reduce conflict for NEGACION in state 45 resolved as shift
+WARNING: shift/reduce conflict for AND in state 45 resolved as shift
+WARNING: shift/reduce conflict for OR in state 45 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 45 resolved as shift
+WARNING: shift/reduce conflict for MENORIGUAL in state 45 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 45 resolved as shift
+WARNING: shift/reduce conflict for MAYORIGUAL in state 45 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 45 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 45 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 45 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 45 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 45 resolved as shift
+WARNING: shift/reduce conflict for IGUALDAD in state 46 resolved as shift
+WARNING: shift/reduce conflict for NEGACION in state 46 resolved as shift
+WARNING: shift/reduce conflict for AND in state 46 resolved as shift
+WARNING: shift/reduce conflict for OR in state 46 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 46 resolved as shift
+WARNING: shift/reduce conflict for MENORIGUAL in state 46 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 46 resolved as shift
+WARNING: shift/reduce conflict for MAYORIGUAL in state 46 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 46 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 46 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 46 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 46 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 46 resolved as shift
+WARNING: shift/reduce conflict for IGUALDAD in state 47 resolved as shift
+WARNING: shift/reduce conflict for NEGACION in state 47 resolved as shift
+WARNING: shift/reduce conflict for AND in state 47 resolved as shift
+WARNING: shift/reduce conflict for OR in state 47 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 47 resolved as shift
+WARNING: shift/reduce conflict for MENORIGUAL in state 47 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 47 resolved as shift
+WARNING: shift/reduce conflict for MAYORIGUAL in state 47 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 47 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 47 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 47 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 47 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 47 resolved as shift
+WARNING: shift/reduce conflict for IGUALDAD in state 48 resolved as shift
+WARNING: shift/reduce conflict for NEGACION in state 48 resolved as shift
+WARNING: shift/reduce conflict for AND in state 48 resolved as shift
+WARNING: shift/reduce conflict for OR in state 48 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 48 resolved as shift
+WARNING: shift/reduce conflict for MENORIGUAL in state 48 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 48 resolved as shift
+WARNING: shift/reduce conflict for MAYORIGUAL in state 48 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 48 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 48 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 48 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 48 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 48 resolved as shift

@@ -1,57 +1,16 @@
-import ply.yacc as yacc
 from lexer import tokens
 
 variables = {}
+
 tokenTipo = {
-        'INTEGER': 'INT',
-        'FLOATNUM': 'FLOAT',
-        'STRING': 'STRING',
+    int: 'INT',
+    float: 'FLOAT',
+    str: 'STRING',
 }
 
-def p_tipovariable(p):
-
-    '''tipo : INT
-            | FLOAT
-    '''
-    p[0] = p.slice [1].type
-
-def p_valorvariable(p):
-
-    '''valor : INTEGER
-             | FLOATNUM
-             | STRING
-    '''
-    tipoVar = tokenTipo.get(p.slice[1].type, p.slice[1].type)
-    p[0] = {'tipo': tipoVar, 'valor': p[1]}
-
-def p_funinicio (p):
-    'funINICIO : STRING FUNC bloquecodigo'
-    pass
-
-def p_bloquecodigo(p):
-
-    '''bloquecodigo : LBRACE statements keywords RBRACE
-                    | LBRACE keywords RBRACE
-                    | LBRACE statements RBRACE
-    '''
-    pass
-
-def p_statement_assign(p):
-    'statement : IDENTIFIER ASSIGN expression'
-    variables[p[1]] = p[3]
-
-def p_statement_print(p):
-    'statement : PRINT LPAREN expression RPAREN'
-    if len(p.stack) <= 3:  # Verificamos si estamos en el bloque cero
-        print(p[3])  # Imprime de inmediato si estamos fuera de un bloque
-    else:
-        p[0] = ("print", p[3])  # En lugar de imprimir de inmediato, lo almacenamos
-
-def p_statement_if_else(p):
-    '''statement : IF LPAREN expression RPAREN bloquecodigo
-                 | IF LPAREN expression RPAREN keyword
-                 | IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo'''
-    pass
+def p_program(p):
+    '''program : statements'''
+    p[0] = p[1]
 
 def p_statements(p):
     '''statements : statement
@@ -60,6 +19,45 @@ def p_statements(p):
         p[0] = [p[1]]
     else:
         p[0] = p[1] + [p[2]]
+
+def p_statement_assign(p):
+    'statement : IDENTIFIER ASSIGN valor PUNTOYCOMA'
+    variables[p[1]] = p[3]
+    print(f"Variable '{p[1]}' asignada con valor {p[3]} (tipo: {type(p[3]).__name__.upper()})")
+
+def p_statement_print(p):
+    'statement : PRINT LPAREN expression RPAREN PUNTOYCOMA'
+    print(p[3])
+
+def p_statement_if_else(p):
+    '''statement : IF LPAREN expression RPAREN bloquecodigo
+                 | IF LPAREN expression RPAREN bloquecodigo ELSE bloquecodigo'''
+    condition_result = bool(p[3])
+    if condition_result:
+        print("Ejecutando bloque del ELSE (IF en Trolleangue)")
+        p[0] = p[5]
+    elif len(p) == 8:
+        print("Ejecutando bloque del IF (ELSE en Trolleangue)")
+        p[0] = p[7]
+
+def p_bloquecodigo(p):
+    '''bloquecodigo : LBRACE statements RBRACE
+                    | LBRACE RBRACE'''
+    p[0] = p[2] if len(p) == 4 else []
+
+def p_valorvariable(p):
+    '''valor : INTEGER
+             | FLOATNUM
+             | STRING'''
+    p[0] = p[1]  # Devuelve directamente el valor
+
+def p_expression(p):
+    '''expression : valor
+                  | IDENTIFIER'''
+    if isinstance(p[1], dict):  # Si viene de 'valor', toma el valor directamente
+        p[0] = p[1]
+    else:  # Si es una variable, toma su valor desde el diccionario de variables
+        p[0] = variables.get(p[1], 0)
 
 def p_expression_logic(p):
     '''expression : expression IGUALDAD expression
@@ -104,23 +102,11 @@ def p_expression_binop(p):
     elif p[2] == '/':
         p[0] = p[1] % p[3]
 
-def p_expression_group(p):
-    'expression : LPAREN expression RPAREN'
-    p[0] = p[2]
-
-def p_expression_number(p):
-    'expression : NUMBER'
-    p[0] = p[1]
-
-def p_expression_string(p):
-    'expression : STRING'
-    p[0] = p[1]
-
-def p_expression_identifier(p):
-    'expression : IDENTIFIER'
-    p[0] = variables.get(p[1], 0)
-
 def p_error(p):
-    print("Error de sintaxis")
+    if p:
+        print(f"Error de sintaxis en '{p.value}'")
+    else:
+        print("Error de sintaxis")
 
-parser = yacc.yacc()
+import ply.yacc as yacc
+parser = yacc.yacc(start='program')
