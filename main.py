@@ -1,40 +1,36 @@
 import ply.lex as lex
 import ply.yacc as yacc
-from lexer import lexer
-from parser import parser
-
-def ejecutar_instrucciones(instrucciones):
-    """
-    Ejecuta las instrucciones procesadas.
-    """
-    for instruccion in instrucciones:
-        if isinstance(instruccion, tuple) and instruccion[0] == "print":
-            print(instruccion[1])
+from lexer import lexer  # Importa el lexer definido
+from parser import parser  # Importa el parser definido
 
 def main():
-    block = ""
-    open_blocks = 0
+    # Ruta del archivo con código Trolleangue
+    archivo = './ejemplo.txt'
 
-    while True:
-        try:
-            s = input('Trolleangue > ')
-        except EOFError:
-            break
+    try:
+        # Leer el contenido del archivo
+        with open(archivo, 'r', encoding='utf-8') as file:
+            data = file.read()
+    except FileNotFoundError:
+        print(f"Error: No se encontró el archivo '{archivo}'")
+        return
+    except Exception as e:
+        print(f"Error al leer el archivo: {e}")
+        return
 
-        if not s.strip():
-            continue
+    # Mostrar el contenido del archivo (opcional, para depuración)
+    print("Código a compilar:")
+    print(data)
+    print("\n--- Compilando ---\n")
 
-        open_blocks += s.count('}')
-        open_blocks -= s.count('{')
-
-        block += s + "\n"
-
-        if open_blocks == 0 and block.strip():
-            lexer.input(block)
-            result = parser.parse(block)
-            if result is not None:
-                ejecutar_instrucciones(result)  # Solo ejecuta el bloque seleccionado
-            block = ""
+    # Ejecutar el parser para compilar y ejecutar el código
+    try:
+        result = parser.parse(data)
+        print("\n--- Ejecución Completada ---\n")
+        print("Resultado del parser:")
+        print(result)
+    except Exception as e:
+        print(f"Error durante la compilación: {e}")
 
 if __name__ == '__main__':
     main()
